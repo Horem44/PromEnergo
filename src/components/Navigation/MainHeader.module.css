@@ -1,0 +1,110 @@
+.main_header {
+    display: flex;
+    padding: 1rem;
+    background: white;
+    box-shadow: 0 5px 5px rgba(42, 41, 39, 0.3);
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    justify-content: center;
+    z-index: 100;
+    top: 0;
+    left: 0;
+}
+
+.main_logo_container img {
+    height: 45px;
+    margin-right: 4rem;
+    margin-left: 2rem;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.main_logo_container img:hover {
+    opacity: 1;
+}
+
+.nav_links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav_link {
+    margin-right: 2rem;
+}
+
+.nav_link a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.4rem;
+    padding: 0.4rem;
+    font-weight: bold;
+}
+
+.nav_link a:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+.account_logo_container {
+    flex-grow: 2;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2rem;
+}
+
+.account_logo_container button {
+    background: none;
+    border: none;
+    opacity: 0.7;
+}
+
+.account_logo_container button:hover {
+    opacity: 1;
+}
+
+.account_logo_container img {
+    height: 45px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 680px) {
+    .main_nav{
+        display: none;
+    }
+
+    .account_logo_container {
+        flex-grow: 0;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 0;
+    }
+
+    .account_logo_container img {
+        height: 45px;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .main_header {
+        justify-content: space-between;
+        align-content: center;
+    }
+
+    .main_logo_container {
+        align-self: center;
+    }
+}
+
+@media screen and (min-width: 680px) {
+    .side_drawer_btn {
+        display: none;
+    }
+
+    .side_drawer {
+        display: none;
+    }
+}

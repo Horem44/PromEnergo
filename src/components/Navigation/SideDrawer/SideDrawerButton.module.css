@@ -1,0 +1,20 @@
+.side_drawer_btn {
+    width: 45px;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.side_drawer_btn--line {
+    width: 100%;
+    height: 2px;
+    margin-bottom: 0.5rem;
+    background: black;
+}
+
+.side_drawer_btn--line:first-of-type {
+    margin-top: 0.5rem;
+}
