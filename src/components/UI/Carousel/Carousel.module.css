@@ -1,0 +1,11 @@
+.carousel_img {
+    width: 100%;
+    height: 60vh;
+    border-radius: 50px;
+    padding: 2rem;
+}
+
+.carousel_container {
+    width: 100%;
+
+}
