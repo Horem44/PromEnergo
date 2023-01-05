@@ -1,0 +1,102 @@
+.location_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+    margin: 2rem auto;
+    background: rgba(255, 218, 174, 0.69);
+    border-radius: 80px 80px 0 0;
+    width: 60vw;
+}
+
+.location_section img{
+    width: 50px;
+    height: auto;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+    transform: translateY(0px);
+}
+
+.location_section img:hover{
+    transform: translateY(-10px);
+}
+
+.location_section address{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-style: normal;
+}
+
+.contacts_section {
+    display: flex;
+    justify-content: center;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgba(255, 218, 174, 1);
+    border-radius: 20px;
+    padding: 2%;
+    margin: 0 2rem 2rem 2rem;
+}
+
+.contact img {
+    width: 10vw;
+    height: auto;
+    transition: transform 0.3s ease;
+    transform: translateY(0px);
+}
+
+.contact img:hover {
+    transform: translateY(-10px);
+}
+
+@media screen and (max-width: 750px) {
+    .location_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem;
+        margin: 2rem auto;
+        background: rgba(255, 218, 174, 0.69);
+        border-radius: 80px 80px 0 0;
+        width: 90vw;
+    }
+
+    .location_section address {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .location_section img{
+        width: 50px;
+        height: auto;
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease;
+        transform: translateY(0px);
+    }
+
+    .contacts_section {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .contact {
+        display: flex;
+        border: 2px solid rgba(255, 218, 174, 1);
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin: 0 2rem 2rem 2rem;
+        width: 90vw;
+    }
+
+    .contact img {
+        width: 75px;
+        height: auto;
+        transition: transform 0.3s ease;
+        transform: translateY(0px);
+    }
+}

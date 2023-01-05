@@ -50,7 +50,7 @@
     color: rgb(179, 248, 246);
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 750px) {
     .main_footer {
         background: black;
         height: 30%;
@@ -91,5 +91,12 @@
 
     .footer_description p {
         font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-height: 605px){
+    .main_footer {
+        background: black;
+        height: 48vh;
     }
 }

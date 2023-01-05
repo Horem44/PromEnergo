@@ -85,7 +85,7 @@ const MainHeader: React.FC = () => {
           <BackDrop />
         </div>
       )}
-      {windowWidth < 680 && (
+      {windowWidth < 750 && (
         <div className={classes.side_drawer}>
           <SideDrawer
             isOpen={sideDrawerIsOpen}

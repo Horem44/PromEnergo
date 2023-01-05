@@ -1,0 +1,19 @@
+.product_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.product_img {
+    width: 200px;
+    height: 200px;
+}
+
+.product_label {
+    margin: 0;
+}
+
+.product_price {
+    margin: 0;
+}

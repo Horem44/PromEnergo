@@ -59,6 +59,7 @@
     background: none;
     border: none;
     opacity: 0.7;
+
 }
 
 .account_logo_container button:hover {
@@ -71,7 +72,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 750px) {
     .main_nav{
         display: none;
     }
@@ -99,12 +100,28 @@
     }
 }
 
-@media screen and (min-width: 680px) {
+@media screen and (min-width: 750px) {
     .side_drawer_btn {
         display: none;
     }
 
     .side_drawer {
         display: none;
+    }
+}
+
+@media screen and (max-width: 349px) {
+    .main_logo_container img {
+        height: 25px;
+        margin-right: 4rem;
+        margin-left: 2rem;
+        cursor: pointer;
+        opacity: 0.9;
+    }
+
+    .account_logo_container img {
+        height: 25px;
+        margin: 0 auto;
+        cursor: pointer;
     }
 }

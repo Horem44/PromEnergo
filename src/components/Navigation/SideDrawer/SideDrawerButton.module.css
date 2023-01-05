@@ -18,3 +18,15 @@
 .side_drawer_btn--line:first-of-type {
     margin-top: 0.5rem;
 }
+
+@media screen and (max-width: 349px) {
+    .side_drawer_btn {
+        width: 35px;
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

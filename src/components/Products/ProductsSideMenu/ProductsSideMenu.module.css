@@ -1,0 +1,37 @@
+.side_menu {
+    background: lightgray;
+    width: 25vw;
+    box-shadow: 0 10px 10px rgba(42, 41, 39, 0.5);
+}
+
+.side_menu_products {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
+
+.side_menu_product {
+    margin-left: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.side_menu_product label{
+   margin-left: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.side_menu_product label:hover{
+    color: #1584c7;
+}
+
+.side_menu_product input{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}

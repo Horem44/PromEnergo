@@ -1,0 +1,15 @@
+.map {
+    height: 50vh;
+    width: 50vw;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(42, 41, 39, 0.3);
+}
+
+@media screen and (max-width: 750px){
+    .map {
+        height: 50vh;
+        width: 80vw;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(42, 41, 39, 0.3);
+    }
+}
