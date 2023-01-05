@@ -24,6 +24,7 @@ const Carousel = () => (
   <AliceCarousel
     autoPlay={true}
     autoPlayInterval={5000}
+    autoPlayStrategy="none"
     infinite
     mouseTracking
     items={items}

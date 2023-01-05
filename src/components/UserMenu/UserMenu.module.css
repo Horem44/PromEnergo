@@ -9,6 +9,7 @@
     width: 200px;
     box-shadow: 0 5px 5px rgba(42, 41, 39, 0.3);
     animation: 0.3s openModal ease-out;
+    z-index: 99;
 }
 
 .user_links {

@@ -9,13 +9,12 @@ function App() {
     return (
         <>
             <MainHeader/>
-            <div style={{height: "90px"}}></div>
             <Switch>
                 <Route path="/" exact>
                     <MainPage/>
                 </Route>
             </Switch>
-            <div style={{height: "100vh"}}></div>
+            {/*<div style={{height: "100vh"}}></div>*/}
             <MainFooter/>
         </>
     );
