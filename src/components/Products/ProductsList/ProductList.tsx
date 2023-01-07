@@ -15,7 +15,7 @@ const ProductList: React.FC<ProductListProps> = (props) => {
         <ul className={classes.product_list}>
             {props.products.map(product => {
                 return (
-                    <li className={classes.product}>
+                    <li key={Math.random()} className={classes.product}>
                         <ProductItem image={product.image} price={product.price} label={product.label}/>
                     </li>
                 );

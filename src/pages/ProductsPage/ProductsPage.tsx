@@ -1,7 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import ProductsSideMenu from "../../components/Products/ProductsSideMenu/ProductsSideMenu";
 import ProductList from "../../components/Products/ProductsList/ProductList";
 import classes from "./ProductsPage.module.css";
+import ProductsSideMenuFilterButton
+  from "../../components/Products/ProductsSideMenu/ProductsSideMenuMobile/ProductsSideMenuFilterButton";
+import BackDrop from "../../components/UI/BackDrop";
+
+const isSideMenuOpenInitially = window.innerWidth >= 750;
+const windowWidth =  window.innerWidth;
 
 const DUMMY_PRODUCTS = [
   {
@@ -43,11 +49,29 @@ const DUMMY_PRODUCTS = [
 ];
 
 const ProductsPage = () => {
+
+  const [sideMenuIsOpen, setSideMenuIsOpen] = useState<boolean>(isSideMenuOpenInitially)
+
+  const sideMenuToggleHandler = () => {
+    setSideMenuIsOpen(prevState => !prevState);
+    if (!sideMenuIsOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }
+
   return (
     <div>
       <div style={{ height: "84px" }}></div>
+      <ProductsSideMenuFilterButton onToggleSideMenu={sideMenuToggleHandler}/>
       <div className={classes.products_page_container}>
-        <ProductsSideMenu />
+        {sideMenuIsOpen && <ProductsSideMenu/>}
+        {sideMenuIsOpen && (windowWidth < 750) &&(
+            <div onClick={sideMenuToggleHandler}>
+              <BackDrop />
+            </div>
+        )}
         <ProductList products={DUMMY_PRODUCTS} />
       </div>
     </div>

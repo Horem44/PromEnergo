@@ -13,7 +13,8 @@ const ProductItem:React.FC<ProductItemProps> = (props) => {
     <div className={classes.product_item}>
       <img className={classes.product_img} src={props.image} alt={props.label} />
       <p className={classes.product_label}>{props.label}</p>
-      <p className={classes.product_price}>{props.price}</p>
+      <p className={classes.product_price}>{props.price} грн.</p>
+      <button onClick={() => {console.log('d')}}>Додати в корзину</button>
     </div>
   );
 };

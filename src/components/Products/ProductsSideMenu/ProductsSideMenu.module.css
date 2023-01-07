@@ -1,6 +1,6 @@
 .side_menu {
     background: lightgray;
-    width: 25vw;
+    width: 30vw;
     box-shadow: 0 10px 10px rgba(42, 41, 39, 0.5);
 }
 
@@ -15,13 +15,13 @@
 
 .side_menu_product {
     margin-left: 2rem;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     display: flex;
     align-items: center;
 }
 
 .side_menu_product label{
-   margin-left: 0.5rem;
+   margin-left: 1rem;
     font-size: 1rem;
     cursor: pointer;
 }
@@ -34,4 +34,16 @@
     width: 15px;
     height: 15px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 750px) {
+    .side_menu {
+        z-index: 94;
+        background: lightgray;
+        width: 70vw;
+        box-shadow: 0 10px 10px rgba(42, 41, 39, 0.5);
+        position: fixed;
+        overflow-y: scroll !important;
+        height: 100vh;
+    }
 }

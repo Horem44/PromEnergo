@@ -47,7 +47,8 @@ const ProductsSideMenu = () => {
                 </li>
             </ul>
         </div>
-    );
+
+    )
 };
 
 export default ProductsSideMenu;
