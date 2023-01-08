@@ -1,0 +1,9 @@
+.registration_page_header {
+    text-align: center;
+}
+
+@media screen and (max-width: 750px){
+    .registration_page_header {
+        font-size: 1.8rem;
+    }
+}

@@ -6,6 +6,7 @@ import MainFooter from "./components/Navigation/MainFooter";
 import MainPage from "./pages/MainPage/MainPage";
 import ContactsPage from "./pages/ContactsPage/ContactsPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
+import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 
 function App() {
     return (
@@ -22,6 +23,14 @@ function App() {
 
                 <Route path="/products" exact>
                     <ProductsPage/>
+                </Route>
+
+                <Route path="/registration" exact>
+                    <RegistrationPage/>
+                </Route>
+
+                <Route path='/*'>
+                    <MainPage/>
                 </Route>
             </Switch>
             {/*<div style={{height: "100vh"}}></div>*/}

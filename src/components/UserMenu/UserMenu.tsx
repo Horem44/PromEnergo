@@ -11,7 +11,7 @@ const UserMenu = () => {
                 </Link>
             </li>
             <li className={classes.user_link}>
-                <Link to='/userID/orders'>
+                <Link to='/orders'>
                     Мої замовлення
                 </Link>
             </li>

@@ -5,7 +5,7 @@ import mainLogo from "./assets/logo.png";
 import classes from "./MainHeader.module.css";
 import SideDrawerButton from "./SideDrawer/SideDrawerButton";
 import SideDrawer from "./SideDrawer/SideDrawer";
-import BackDrop from "../UI/BackDrop";
+import BackDrop from "../UI/BackDrop/BackDrop";
 import UserMenu from "../UserMenu/UserMenu";
 
 const windowWidth = window.innerWidth;
