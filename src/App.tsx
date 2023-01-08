@@ -7,6 +7,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import ContactsPage from "./pages/ContactsPage/ContactsPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 function App() {
     return (
@@ -27,6 +28,10 @@ function App() {
 
                 <Route path="/registration" exact>
                     <RegistrationPage/>
+                </Route>
+
+                <Route path="/login" exact>
+                    <LoginPage/>
                 </Route>
 
                 <Route path='/*'>
