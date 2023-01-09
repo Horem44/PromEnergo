@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-export type uiSlice = {
+export interface uiSlice {
     productsFilterMenuIsVisible: boolean;
 }
 

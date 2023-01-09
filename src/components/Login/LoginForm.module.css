@@ -1,7 +1,7 @@
 .login_form_container {
     background: rgba(152, 152, 152, 0.3);
     width: 50vw;
-    height: 50vh;
+    height: 60vh;
     border-radius: 10px;
     margin: 2rem auto;
     padding: 1.5rem;
@@ -51,6 +51,16 @@
     background: rgba(199, 237, 252, 0.7);
 }
 
+.login_form_error {
+    color: #ff2d2d;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.login_form_error_input {
+    border: 1px solid #ff2d2d !important;
+}
+
 @media screen and (max-width: 750px) {
     .login_form_container {
         background: rgba(152, 152, 152, 0.3);
@@ -58,7 +68,7 @@
         border-radius: 10px;
         margin: 2rem auto;
         padding: 1.5rem;
-        height: calc(100vh - 300px);
+        height: calc(100vh - 200px);
     }
 
     .login_form {
@@ -94,5 +104,13 @@
         font-size: 1.2rem;
         cursor: pointer;
         margin-bottom: 1.2rem;
+        margin-top: 1rem;
+    }
+
+    .login_form_error {
+        color: #ff2d2d;
+        margin: 0;
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
     }
 }
