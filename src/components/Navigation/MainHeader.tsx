@@ -7,15 +7,28 @@ import SideDrawerButton from "./SideDrawer/SideDrawerButton";
 import SideDrawer from "./SideDrawer/SideDrawer";
 import BackDrop from "../UI/BackDrop/BackDrop";
 import UserMenu from "../UserMenu/UserMenu";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../Store";
+import { uiActions } from "../../Store/ui-slice";
 
 const windowWidth = window.innerWidth;
 
 const MainHeader: React.FC = () => {
+  const productsFilterMenuIsOpen = useSelector<RootState, boolean>(
+    (state) => state.ui.productsFilterMenuIsVisible
+  );
+  const dispatch = useDispatch();
+
   const [sideDrawerIsOpen, setSideDrawerIsOpen] = useState<boolean>(false);
   const [userMenuIsOpen, setUserMenuIsOpen] = useState<boolean>(false);
 
   const toggleSideDrawerOpenHandler = () => {
     setSideDrawerIsOpen((prevState) => !prevState);
+
+    if (productsFilterMenuIsOpen) {
+      dispatch(uiActions.closeProductsFilterMenu());
+    }
+
     if (!sideDrawerIsOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -26,6 +39,10 @@ const MainHeader: React.FC = () => {
   const closeSideDrawerHandler = () => {
     setSideDrawerIsOpen(false);
     document.body.style.overflow = "";
+
+    if (productsFilterMenuIsOpen) {
+      dispatch(uiActions.closeProductsFilterMenu());
+    }
   };
 
   const openUserMenuHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -66,12 +83,12 @@ const MainHeader: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <div
-          className={classes.account_logo_container}
-          onClick={closeSideDrawerHandler}
-        >
+        <div className={classes.account_logo_container}>
           <button
             onClick={(e) => {
+              if (productsFilterMenuIsOpen) {
+                dispatch(uiActions.closeProductsFilterMenu());
+              }
               openUserMenuHandler(e);
               closeSideDrawerHandler();
             }}

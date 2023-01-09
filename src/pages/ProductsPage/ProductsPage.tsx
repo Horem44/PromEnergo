@@ -4,6 +4,9 @@ import ProductList from "../../components/Products/ProductsList/ProductList";
 import classes from "./ProductsPage.module.css";
 import ProductsSideMenuFilterButton from "../../components/Products/ProductsSideMenu/ProductsSideMenuMobile/ProductsSideMenuFilterButton";
 import BackDrop from "../../components/UI/BackDrop/BackDrop";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../Store";
+import {uiActions} from "../../Store/ui-slice";
 
 const isSideMenuOpenInitially = window.innerWidth >= 750;
 const windowWidth = window.innerWidth;
@@ -48,13 +51,15 @@ const DUMMY_PRODUCTS = [
 ];
 
 const ProductsPage = () => {
-  const [sideMenuIsOpen, setSideMenuIsOpen] = useState<boolean>(
-    isSideMenuOpenInitially
+  const productsFilterMenuIsOpen = useSelector<RootState, boolean>(
+      (state) => state.ui.productsFilterMenuIsVisible
   );
 
+  const dispatch = useDispatch();
+
   const sideMenuToggleHandler = () => {
-    setSideMenuIsOpen((prevState) => !prevState);
-    if (!sideMenuIsOpen) {
+    dispatch(uiActions.toggleProductsFilterMenu())
+    if (!productsFilterMenuIsOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -66,8 +71,8 @@ const ProductsPage = () => {
       <div style={{ height: "84px" }}></div>
       <ProductsSideMenuFilterButton onToggleSideMenu={sideMenuToggleHandler} />
       <div className={classes.products_page_container}>
-        {sideMenuIsOpen && <ProductsSideMenu />}
-        {sideMenuIsOpen && windowWidth < 750 && (
+        {productsFilterMenuIsOpen && <ProductsSideMenu />}
+        {productsFilterMenuIsOpen && windowWidth < 750 && (
           <div onClick={sideMenuToggleHandler}>
             <BackDrop />
           </div>
