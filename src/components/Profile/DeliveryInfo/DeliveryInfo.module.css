@@ -47,3 +47,49 @@
 .delivery_info_btn:hover {
     background: rgba(199, 237, 252, 0.7);
 }
+
+@media screen and (max-width: 750px) {
+    .delivery_info_container {
+        background: rgba(152, 152, 152, 0.3);
+        width: 80vw;
+        border-radius: 10px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    .delivery_info_form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 60vw;
+        margin: 0 auto;
+    }
+
+    .delivery_info_label{
+        align-self: flex-start;
+        margin-bottom: 1.2rem;
+        font-size: 1.2rem;
+    }
+
+    .delivery_info_input{
+        width: 100%;
+        margin-bottom: 1.7rem;
+        height: 2rem;
+        border-radius: 8px;
+        border: 1px solid rgba(0,0,0,0.5);
+    }
+
+    .delivery_info_input:hover{
+        box-shadow: inset 0 0 5px 0 rgba(0,0,0,0.4);
+    }
+
+    .delivery_info_btn {
+        height: 2rem;
+        width: 11rem;
+        border-radius: 10px;
+        border: 1px solid rgba(0,0,0,0.5);
+        background: white;
+        font-size: 1.2rem;
+    }
+}

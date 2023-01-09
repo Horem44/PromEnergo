@@ -23,3 +23,62 @@
     text-align: center;
     margin-bottom: 2rem;
 }
+
+@media screen and (max-width: 750px) {
+    .profile_page_header {
+        font-size: 1.8rem;
+    }
+
+    .profile_page_options {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+        border: 1px solid black;
+        border-radius: 10px;
+        margin: 1rem;
+    }
+
+    .profile_page_option {
+        padding: 0.5rem;
+        cursor: pointer;
+        text-align: center;
+        margin-right: 0;
+        border: none;
+    }
+
+    .profile_page_option:not(:last-child) {
+        border-right: 1px solid black;
+        border-radius: 0;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .profile_page_header {
+        font-size: 1.6rem;
+    }
+
+    .profile_page_options {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        font-size: 0.8rem;
+        border: 1px solid black;
+        border-radius: 10px;
+        margin: 1rem;
+    }
+
+    .profile_page_option {
+        padding: 0.5rem;
+        cursor: pointer;
+        text-align: center;
+        margin-right: 0;
+        border: none;
+    }
+
+    .profile_page_option:not(:last-child) {
+       border: none;
+    }
+}
