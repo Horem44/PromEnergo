@@ -8,6 +8,8 @@ import ContactsPage from "./pages/ContactsPage/ContactsPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import UserOrders from "./pages/UserOrders/UserOrders";
 
 function App() {
     return (
@@ -32,6 +34,14 @@ function App() {
 
                 <Route path="/login" exact>
                     <LoginPage/>
+                </Route>
+
+                <Route path="/profile" exact>
+                    <ProfilePage/>
+                </Route>
+
+                <Route path="/orders" exact>
+                    <UserOrders/>
                 </Route>
 
                 <Route path='/*'>

@@ -1,0 +1,28 @@
+.order_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border: 1px solid black;
+    margin: 1rem;
+    border-radius: 8px;
+    align-items: center;
+    background: rgba(152, 152, 152, 0.3);
+}
+
+.order_img {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+}
+
+.order_data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.order_data span{
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}

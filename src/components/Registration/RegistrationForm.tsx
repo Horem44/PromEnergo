@@ -59,6 +59,15 @@ const RegistrationForm = () => {
               className={classes.registration_form_input}
           />
 
+          <label htmlFor="reg_surname" className={classes.registration_form_label}>
+            Ваше прізвище
+          </label>
+          <input
+              type="text"
+              id="reg_surname"
+              className={classes.registration_form_input}
+          />
+
           <div className={classes.registration_form_user_type}>
             <label
                 htmlFor="reg_entity"
