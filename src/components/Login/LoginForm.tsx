@@ -4,6 +4,7 @@ import loginValidator, {
     loginFormData,
     loginValidationResult,
 } from "../../util/validators/loginValidator";
+import {Link} from "react-router-dom";
 
 const initialLoginValidationResult: loginValidationResult = {
     formIsValid: false,
@@ -81,7 +82,9 @@ const LoginForm = () => {
                 )}
 
                 <button className={classes.login_form_btn} type='submit'>Увійти</button>
-                <button className={classes.login_form_btn}>Реєстрація</button>
+                <div className={classes.login_form_btn}>
+                    <Link className={classes.login_form_link} to='/registration'>Реєстрація</Link>
+                </div>
             </form>
         </div>
     );

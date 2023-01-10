@@ -40,7 +40,7 @@ const MainHeader: React.FC = () => {
     setSideDrawerIsOpen(false);
     document.body.style.overflow = "";
 
-    if (productsFilterMenuIsOpen) {
+    if (windowWidth < 750 && productsFilterMenuIsOpen) {
       dispatch(uiActions.closeProductsFilterMenu());
     }
   };
@@ -86,7 +86,7 @@ const MainHeader: React.FC = () => {
         <div className={classes.account_logo_container}>
           <button
             onClick={(e) => {
-              if (productsFilterMenuIsOpen) {
+              if (windowWidth < 750 && productsFilterMenuIsOpen) {
                 dispatch(uiActions.closeProductsFilterMenu());
               }
               openUserMenuHandler(e);

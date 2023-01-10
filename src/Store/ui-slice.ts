@@ -5,7 +5,7 @@ export interface uiSlice {
 }
 
 const initialState: uiSlice = {
-    productsFilterMenuIsVisible: false
+    productsFilterMenuIsVisible: true
 }
 
 const uiSlice = createSlice({

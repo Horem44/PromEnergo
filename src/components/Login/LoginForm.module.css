@@ -45,6 +45,14 @@
     font-size: 1.2rem;
     cursor: pointer;
     margin-bottom: 1.2rem;
+    text-align: center;
+}
+
+.login_form_link {
+    color: black;
+    font-weight: bold ;
+    text-decoration: none;
+    vertical-align: middle;
 }
 
 .login_form_btn:hover {
