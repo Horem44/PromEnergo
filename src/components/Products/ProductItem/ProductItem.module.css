@@ -33,12 +33,17 @@
     background: transparent;
     border-radius: 8px;
     padding: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border: 1px solid rgba(0,0,0,0.7);
     cursor: pointer;
     margin-bottom: 0.5rem;
     transition: transform 0.3s ease;
     transform: scale(1);
+}
+
+.product_item button a{
+    text-decoration: none;
+    color: black;
 }
 
 .product_item button:active {

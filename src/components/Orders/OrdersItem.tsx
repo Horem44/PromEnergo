@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./OrdersItem.module.css";
+import {Link} from "react-router-dom";
 
 interface ordersItemProps {
     orderDate: string;
@@ -16,7 +17,9 @@ const OrdersItem:React.FC<ordersItemProps> = (props) => {
             {1}
         </div>
         <div className={classes.order_data}>
-            <img  className={classes.order_img} src={props.orderImg} alt=''/>
+            <Link to='/order/details'>
+                <img  className={classes.order_img} src={props.orderImg} alt=''/>
+            </Link>
         </div>
         <div className={classes.order_data}>
             <span>Дата замовлення</span>

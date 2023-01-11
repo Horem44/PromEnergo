@@ -4,7 +4,7 @@ import loginValidator, {
     loginFormData,
     loginValidationResult,
 } from "../../util/validators/loginValidator";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const initialLoginValidationResult: loginValidationResult = {
     formIsValid: false,
@@ -19,6 +19,8 @@ const initialLoginValidationResult: loginValidationResult = {
 };
 
 const LoginForm = () => {
+    const history = useHistory();
+
     const [loginFormValidationResult, setLoginFormValidationResult] =
         useState<loginValidationResult>(initialLoginValidationResult);
 
@@ -39,6 +41,7 @@ const LoginForm = () => {
 
         if (loginFormValidationResult.formIsValid) {
             console.log("Form is valid");
+            history.push('/');
         } else {
             console.log("Form is not valid");
         }
@@ -56,7 +59,7 @@ const LoginForm = () => {
                     ref={emailInputRef}
                     type="email"
                     id="login_email"
-                    className={`${classes.login_form_input} ${!loginFormValidationResult.email.isValid 
+                    className={`${classes.login_form_input} ${!loginFormValidationResult.email.isValid
                         ? classes.login_form_error_input : ''}`}
                 />
                 {!loginFormValidationResult.email.isValid && (
@@ -81,7 +84,8 @@ const LoginForm = () => {
                     </p>
                 )}
 
-                <button className={classes.login_form_btn} type='submit'>Увійти</button>
+                <button className={classes.login_form_btn} type='submit'>Увійти
+                </button>
                 <div className={classes.login_form_btn}>
                     <Link className={classes.login_form_link} to='/registration'>Реєстрація</Link>
                 </div>

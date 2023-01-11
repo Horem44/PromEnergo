@@ -4,6 +4,7 @@ import registrationValidator, {
   registrationFormData,
   registrationValidationResult,
 } from "../../util/validators/registrationValidator";
+import {useHistory} from "react-router-dom";
 
 const initialRegistrationValidationResult: registrationValidationResult = {
   formIsValid: false,
@@ -38,7 +39,10 @@ const initialRegistrationValidationResult: registrationValidationResult = {
 };
 
 const RegistrationForm = () => {
+  const history = useHistory();
+
   const [isUserEntity, setIsUserEntity] = useState<boolean>(false);
+
   const [
     registrationFormValidationResult,
     setRegistrationFormValidationResult,
@@ -83,6 +87,7 @@ const RegistrationForm = () => {
     setRegistrationFormValidationResult({ ...validationResult });
 
     if (registrationFormValidationResult.formIsValid) {
+      history.push('/');
       console.log("Form is valid");
     } else {
       console.log("Form is not valid");

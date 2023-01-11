@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import ProductsSideMenu from "../../components/Products/ProductsSideMenu/ProductsSideMenu";
 import ProductList from "../../components/Products/ProductsList/ProductList";
 import classes from "./ProductsPage.module.css";
 import ProductsSideMenuFilterButton from "../../components/Products/ProductsSideMenu/ProductsSideMenuMobile/ProductsSideMenuFilterButton";
 import BackDrop from "../../components/UI/BackDrop/BackDrop";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../Store";
-import {uiActions} from "../../Store/ui-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../Store";
+import { uiActions } from "../../Store/ui-slice";
 
-const isSideMenuOpenInitially = window.innerWidth >= 750;
 const windowWidth = window.innerWidth;
 
 const DUMMY_PRODUCTS = [
@@ -52,13 +51,13 @@ const DUMMY_PRODUCTS = [
 
 const ProductsPage = () => {
   const productsFilterMenuIsOpen = useSelector<RootState, boolean>(
-      (state) => state.ui.productsFilterMenuIsVisible
+    (state) => state.ui.productsFilterMenuIsVisible
   );
 
   const dispatch = useDispatch();
 
-  const sideMenuToggleHandler = () => {
-    dispatch(uiActions.toggleProductsFilterMenu())
+  const toggleProductsFilterMenuHandler = () => {
+    dispatch(uiActions.toggleProductsFilterMenu());
     if (!productsFilterMenuIsOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -69,11 +68,13 @@ const ProductsPage = () => {
   return (
     <div>
       <div style={{ height: "84px" }}></div>
-      <ProductsSideMenuFilterButton onToggleSideMenu={sideMenuToggleHandler} />
+      <ProductsSideMenuFilterButton
+        onToggleSideMenu={toggleProductsFilterMenuHandler}
+      />
       <div className={classes.products_page_container}>
         {productsFilterMenuIsOpen && <ProductsSideMenu />}
         {productsFilterMenuIsOpen && windowWidth < 750 && (
-          <div onClick={sideMenuToggleHandler}>
+          <div onClick={toggleProductsFilterMenuHandler}>
             <BackDrop />
           </div>
         )}

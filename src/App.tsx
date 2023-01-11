@@ -10,6 +10,9 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import UserOrders from "./pages/UserOrders/UserOrders";
+import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage/OrderDetailsPage";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 function App() {
     return (
@@ -42,6 +45,18 @@ function App() {
 
                 <Route path="/orders" exact>
                     <UserOrders/>
+                </Route>
+
+                <Route path="/product/details" exact>
+                    <ProductDetailsPage/>
+                </Route>
+
+                <Route path="/order/details" exact>
+                    <OrderDetailsPage/>
+                </Route>
+
+                <Route path="/admin/add-product" exact>
+                    <AdminPage/>
                 </Route>
 
                 <Route path='/*'>
