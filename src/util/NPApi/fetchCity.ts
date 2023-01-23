@@ -2,7 +2,7 @@ const fetchCity = async (cityName: string) => {
     const res = await fetch("https://api.novaposhta.ua/v2.0/json/", {
         method: "post",
         body: JSON.stringify({
-            apiKey: "f3401e72e113e9462440a2940de36237",
+            apiKey: "a83607d74aba6443db7efb9f3365c683",
             modelName: "Address",
             calledMethod: "searchSettlements",
             methodProperties: {
@@ -18,11 +18,12 @@ const fetchCity = async (cityName: string) => {
     });
 
     const resData = await res.json();
+    console.log(resData);
 
     if(resData.data[0] === undefined) {
         return [];
     }
-
+    console.log(resData);
     return resData.data[0].Addresses.map((address: any) => address.Present);
 };
 

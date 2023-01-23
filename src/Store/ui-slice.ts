@@ -2,10 +2,12 @@ import {createSlice} from "@reduxjs/toolkit";
 
 export interface uiSlice {
     productsFilterMenuIsVisible: boolean;
+    isLoading: boolean;
 }
 
 const initialState: uiSlice = {
-    productsFilterMenuIsVisible: true
+    productsFilterMenuIsVisible: true,
+    isLoading: false
 }
 
 const uiSlice = createSlice({
@@ -17,7 +19,7 @@ const uiSlice = createSlice({
         },
         toggleProductsFilterMenu: (state) => {
             state.productsFilterMenuIsVisible = !state.productsFilterMenuIsVisible;
-        }
+        },
     }
 });
 

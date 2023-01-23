@@ -24,6 +24,7 @@ const DeliveryInfo = () => {
 
   useEffect(() => {
     const debouncingTimer = setTimeout(async () => {
+      console.log(cityInput);
       const cityListData = await fetchCity(cityInput);
       setCityList(cityListData);
     }, 800);
