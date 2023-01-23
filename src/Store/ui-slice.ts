@@ -7,7 +7,7 @@ export interface uiSlice {
 
 const initialState: uiSlice = {
     productsFilterMenuIsVisible: true,
-    isLoading: false
+    isLoading: true
 }
 
 const uiSlice = createSlice({
@@ -20,6 +20,12 @@ const uiSlice = createSlice({
         toggleProductsFilterMenu: (state) => {
             state.productsFilterMenuIsVisible = !state.productsFilterMenuIsVisible;
         },
+        startLoading: (state) => {
+            state.isLoading = true;
+        },
+        stopLoading: (state) => {
+            state.isLoading = false;
+        }
     }
 });
 

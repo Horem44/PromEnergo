@@ -12,10 +12,9 @@ interface ProductItemProps {
 }
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
-    console.log(props.imgUrl);
     return (
         <div className={classes.product_item}>
-            <Link to='/product/details'>
+            <Link to={`/product/${props.id}`}>
                 <img className={classes.product_img} src={props.imgUrl} alt={props.title}/>
             </Link>
             <p className={classes.product_label}>{props.title}</p>

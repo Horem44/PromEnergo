@@ -27,7 +27,7 @@ function App() {
                     <ContactsPage/>
                 </Route>
 
-                <Route path="/products" exact>
+                <Route path="/products/:page" exact>
                     <ProductsPage/>
                 </Route>
 
@@ -47,7 +47,7 @@ function App() {
                     <UserOrders/>
                 </Route>
 
-                <Route path="/product/details" exact>
+                <Route path="/product/:prodId" exact>
                     <ProductDetailsPage/>
                 </Route>
 

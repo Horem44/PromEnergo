@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import ProductsSideMenu from "../../components/Products/ProductsSideMenu/ProductsSideMenu";
 import ProductList from "../../components/Products/ProductsList/ProductList";
 import classes from "./ProductsPage.module.css";
@@ -7,6 +7,9 @@ import BackDrop from "../../components/UI/BackDrop/BackDrop";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Store";
 import { uiActions } from "../../Store/ui-slice";
+import getProducts from "../../util/ProductsUtil/getProducts";
+import {useParams} from "react-router-dom";
+import {paginatorActions} from "../../Store/paginator-slice";
 
 const windowWidth = window.innerWidth;
 
@@ -14,6 +17,8 @@ let products: any;
 
 const ProductsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const {page} = useParams<{page: string}>();
+
   const productsFilterMenuIsOpen = useSelector<RootState, boolean>(
     (state) => state.ui.productsFilterMenuIsVisible
   );
@@ -21,23 +26,13 @@ const ProductsPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProducts = () => {
-      setIsLoading(true);
-      fetch("http://localhost:8080/products")
-        .then((response) => {
-          return response.json();
-        })
-        .then((prods) => {
-          products = prods;
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    fetchProducts();
-  }, []);
+    setIsLoading(true);
+    getProducts(+page).then((prodsData) => {
+      dispatch(paginatorActions.setCount(prodsData!.count));
+      products = prodsData!.data;
+      setIsLoading(false);
+    });
+  }, [page]);
 
   const toggleProductsFilterMenuHandler = () => {
     dispatch(uiActions.toggleProductsFilterMenu());
@@ -61,6 +56,7 @@ const ProductsPage = () => {
             <BackDrop />
           </div>
         )}
+        {isLoading && <p>Loading...</p>}
         {!isLoading && <ProductList products={products} />}
       </div>
     </div>
