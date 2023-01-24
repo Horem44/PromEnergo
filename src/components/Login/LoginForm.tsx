@@ -6,6 +6,8 @@ import loginValidator, {
 } from "../../util/validators/loginValidator";
 import {Link, useHistory} from "react-router-dom";
 import {json} from "stream/consumers";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../Store/auth-slice";
 
 const initialLoginValidationResult: loginValidationResult = {
     formIsValid: false,
@@ -21,6 +23,7 @@ const initialLoginValidationResult: loginValidationResult = {
 
 const LoginForm = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [loginFormValidationResult, setLoginFormValidationResult] =
         useState<loginValidationResult>(initialLoginValidationResult);
@@ -52,7 +55,11 @@ const LoginForm = () => {
 
             const resJson = await res.json();
             console.log(resJson);
+            if(res.status !== 200){
+                return;
+            }
 
+            dispatch(authActions.login());
             history.push('/');
         } else {
             console.log("Form is not valid");

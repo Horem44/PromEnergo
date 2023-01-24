@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import {Route, Switch} from "react-router-dom";
 import MainHeader from "./components/Navigation/MainHeader";
@@ -13,8 +13,27 @@ import UserOrders from "./pages/UserOrders/UserOrders";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage/OrderDetailsPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
+import {useDispatch} from "react-redux";
+import {authActions} from "./Store/auth-slice";
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        fetch("http://localhost:8080/auth", {credentials: "include"})
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                if (res.isAuth) {
+                    dispatch(authActions.login());
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
     return (
         <>
             <MainHeader/>
@@ -59,7 +78,7 @@ function App() {
                     <AdminPage/>
                 </Route>
 
-                <Route path='/*'>
+                <Route path="/*">
                     <MainPage/>
                 </Route>
             </Switch>
