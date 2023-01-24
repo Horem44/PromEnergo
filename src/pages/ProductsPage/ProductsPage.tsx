@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Store";
 import { uiActions } from "../../Store/ui-slice";
 import getProducts from "../../util/ProductsUtil/getProducts";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {paginatorActions} from "../../Store/paginator-slice";
 
 const windowWidth = window.innerWidth;
@@ -18,6 +18,7 @@ let products: any;
 const ProductsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const {page} = useParams<{page: string}>();
+  const { search: filterParams } = useLocation();
 
   const productsFilterMenuIsOpen = useSelector<RootState, boolean>(
     (state) => state.ui.productsFilterMenuIsVisible
@@ -27,12 +28,12 @@ const ProductsPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getProducts(+page).then((prodsData) => {
+    getProducts(+page, filterParams).then((prodsData) => {
       dispatch(paginatorActions.setCount(prodsData!.count));
       products = prodsData!.data;
       setIsLoading(false);
     });
-  }, [page]);
+  }, [page, filterParams]);
 
   const toggleProductsFilterMenuHandler = () => {
     dispatch(uiActions.toggleProductsFilterMenu());

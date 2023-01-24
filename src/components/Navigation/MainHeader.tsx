@@ -76,7 +76,7 @@ const MainHeader: React.FC = () => {
         <nav className={classes.main_nav}>
           <ul className={classes.nav_links}>
             <li className={classes.nav_link}>
-              <NavLink to="/products">Товари</NavLink>
+              <NavLink to="/products/0">Товари</NavLink>
             </li>
             <li className={classes.nav_link}>
               <NavLink to="/contacts">Контакти</NavLink>

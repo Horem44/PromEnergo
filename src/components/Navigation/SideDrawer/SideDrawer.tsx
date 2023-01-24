@@ -47,7 +47,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
         <nav className={`${classes.mob_nav}`} style={phases[status]}>
           <ul className={classes.mob_nav_links}>
             <li className={classes.mob_nav_link} onClick={props.onCloseSideDrawer}>
-              <NavLink to="/products">Товари</NavLink>
+              <NavLink to="/products/0">Товари</NavLink>
             </li>
             <li className={classes.mob_nav_link} onClick={props.onCloseSideDrawer}>
               <NavLink to="/contacts">Контакти</NavLink>
