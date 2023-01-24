@@ -66,7 +66,7 @@ const RegistrationForm = () => {
     setIsUserEntity(false);
   };
 
-  const registrationFormSubmitHandler = (e: FormEvent) => {
+  const registrationFormSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
 
     const registrationFormData: registrationFormData = {
@@ -87,8 +87,20 @@ const RegistrationForm = () => {
     setRegistrationFormValidationResult({ ...validationResult });
 
     if (registrationFormValidationResult.formIsValid) {
+      const res = await fetch('http://localhost:8080/users/registration', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(registrationFormData)
+      });
+
+      if(res.status !== 200){
+        console.log('Registration error');
+        return;
+      }
+
       history.push('/');
-      console.log("Form is valid");
     } else {
       console.log("Form is not valid");
     }

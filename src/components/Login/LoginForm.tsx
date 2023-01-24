@@ -5,6 +5,7 @@ import loginValidator, {
     loginValidationResult,
 } from "../../util/validators/loginValidator";
 import {Link, useHistory} from "react-router-dom";
+import {json} from "stream/consumers";
 
 const initialLoginValidationResult: loginValidationResult = {
     formIsValid: false,
@@ -27,7 +28,7 @@ const LoginForm = () => {
     const emailInputRef = useRef<HTMLInputElement>(null);
     const passwordInputRef = useRef<HTMLInputElement>(null);
 
-    const loginFormSubmitHandler = (e: FormEvent) => {
+    const loginFormSubmitHandler = async (e: FormEvent) => {
         e.preventDefault();
 
         const loginFormData: loginFormData = {
@@ -40,7 +41,18 @@ const LoginForm = () => {
         setLoginFormValidationResult({...validationResult});
 
         if (loginFormValidationResult.formIsValid) {
-            console.log("Form is valid");
+            const res = await fetch('http://localhost:8080/users/login', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: "include",
+                body: JSON.stringify(loginFormData)
+            });
+
+            const resJson = await res.json();
+            console.log(resJson);
+
             history.push('/');
         } else {
             console.log("Form is not valid");
