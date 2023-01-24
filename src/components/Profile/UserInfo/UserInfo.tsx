@@ -29,7 +29,7 @@ const initialUserInfoValidationResult: userInfoValidationResult = {
     },
 };
 
-let currentUser:userInfoData;
+let currentUser: userInfoData;
 
 const UserInfo = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -71,7 +71,25 @@ const UserInfo = () => {
         setUserInfoValidationResult({...validationResult});
 
         if (userInfoValidationResult.formIsValid) {
-            console.log("Form is valid");
+            fetch('http://localhost:8080/users/update', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(userInfoData)
+            })
+                .then(res => {
+                    setIsLoading(true);
+                    return res.json();
+                })
+                .then(user => {
+                    currentUser = user;
+                    setIsLoading(false);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         } else {
             console.log("Form is not valid");
         }
@@ -90,7 +108,7 @@ const UserInfo = () => {
                     ref={emailInputRef}
                     type="email"
                     id="info_email"
-                    value={currentUser.email}
+                    defaultValue={currentUser.email}
                     className={`${classes.user_info_input} ${
                         !userInfoValidationResult.email.isValid
                             ? classes.user_info_error_input
@@ -110,7 +128,7 @@ const UserInfo = () => {
                     ref={nameInputRef}
                     type="text"
                     id="info_name"
-                    value={currentUser.name}
+                    defaultValue={currentUser.name}
                     className={`${classes.user_info_input} ${
                         !userInfoValidationResult.name.isValid
                             ? classes.user_info_error_input
@@ -130,7 +148,7 @@ const UserInfo = () => {
                     ref={surnameInputRef}
                     type="text"
                     id="info_surname"
-                    value={currentUser.surname}
+                    defaultValue={currentUser.surname}
                     className={`${classes.user_info_input} ${
                         !userInfoValidationResult.surname.isValid
                             ? classes.user_info_error_input
@@ -150,7 +168,7 @@ const UserInfo = () => {
                     ref={phoneNumberInputRef}
                     type="text"
                     id="info_phone"
-                    value={currentUser.phoneNumber}
+                    defaultValue={currentUser.phoneNumber}
                     className={`${classes.user_info_input} ${
                         !userInfoValidationResult.phoneNumber.isValid
                             ? classes.user_info_error_input
@@ -170,7 +188,7 @@ const UserInfo = () => {
                     ref={organisationNameInputRef}
                     type="text"
                     id="info_organisation_name"
-                    value={currentUser.organisationName}
+                    defaultValue={currentUser.organisationName}
                     className={`${classes.user_info_input} ${
                         !userInfoValidationResult.email.isValid
                             ? classes.user_info_error_input

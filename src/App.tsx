@@ -64,25 +64,25 @@ function App() {
                     <ProductDetailsPage/>
                 </Route>
 
-                {isAuth && (
-                    <>
-                        <Route path="/profile" exact>
+                {isAuth &&
+                    [
+                        <Route key={Math.random()} path="/profile" exact>
                             <ProfilePage/>
-                        </Route>
+                        </Route>,
 
-                        <Route path="/orders" exact>
+                        <Route key={Math.random()} path="/orders" exact>
                             <UserOrders/>
-                        </Route>
+                        </Route>,
 
-                        <Route path="/order/details" exact>
+                        <Route key={Math.random()} path="/order/details" exact>
                             <OrderDetailsPage/>
-                        </Route>
+                        </Route>,
 
-                        <Route path="/admin/add-product" exact>
+                        <Route key={Math.random()} path="/admin/add-product" exact>
                             <AdminPage/>
-                        </Route>
-                    </>
-                )}
+                        </Route>,
+                    ]
+                }
 
                 <Route path="/*">
                     <MainPage/>
