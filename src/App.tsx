@@ -13,11 +13,13 @@ import UserOrders from "./pages/UserOrders/UserOrders";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage/OrderDetailsPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "./Store/auth-slice";
+import {RootState} from "./Store";
 
 function App() {
     const dispatch = useDispatch();
+    const isAuth = useSelector<RootState, boolean>((state) => state.auth.isAuth);
 
     useEffect(() => {
         fetch("http://localhost:8080/auth", {credentials: "include"})
@@ -58,25 +60,29 @@ function App() {
                     <LoginPage/>
                 </Route>
 
-                <Route path="/profile" exact>
-                    <ProfilePage/>
-                </Route>
-
-                <Route path="/orders" exact>
-                    <UserOrders/>
-                </Route>
-
                 <Route path="/product/:prodId" exact>
                     <ProductDetailsPage/>
                 </Route>
 
-                <Route path="/order/details" exact>
-                    <OrderDetailsPage/>
-                </Route>
+                {isAuth && (
+                    <>
+                        <Route path="/profile" exact>
+                            <ProfilePage/>
+                        </Route>
 
-                <Route path="/admin/add-product" exact>
-                    <AdminPage/>
-                </Route>
+                        <Route path="/orders" exact>
+                            <UserOrders/>
+                        </Route>
+
+                        <Route path="/order/details" exact>
+                            <OrderDetailsPage/>
+                        </Route>
+
+                        <Route path="/admin/add-product" exact>
+                            <AdminPage/>
+                        </Route>
+                    </>
+                )}
 
                 <Route path="/*">
                     <MainPage/>
