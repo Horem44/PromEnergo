@@ -6,6 +6,7 @@ export interface userInfoData {
   name: string;
   surname: string;
   phoneNumber: string;
+  organisationName: string;
 }
 
 export interface userInfoValidationResult {
@@ -23,6 +24,10 @@ export interface userInfoValidationResult {
     message: string;
   };
   phoneNumber: {
+    isValid: boolean;
+    message: string;
+  };
+  organisationName: {
     isValid: boolean;
     message: string;
   };
@@ -61,7 +66,7 @@ const userInfoValidator = (userInfoData:userInfoData, userInfoValidationResult:u
 
   if (
       userInfoData.surname.length < 2 ||
-      userInfoData.name.trim().length === 0
+      userInfoData.surname.trim().length === 0
   ) {
     userInfoValidationResult.surname = {
       isValid: false,
@@ -69,6 +74,21 @@ const userInfoValidator = (userInfoData:userInfoData, userInfoValidationResult:u
     };
   } else {
     userInfoValidationResult.surname = {
+      isValid: true,
+      message: "",
+    };
+  }
+
+  if (
+      userInfoData.organisationName.length < 2 ||
+      userInfoData.organisationName.trim().length === 0
+  ) {
+    userInfoValidationResult.organisationName = {
+      isValid: false,
+      message: "Назва організації має бути більше двох символів",
+    };
+  } else {
+    userInfoValidationResult.organisationName = {
       isValid: true,
       message: "",
     };
