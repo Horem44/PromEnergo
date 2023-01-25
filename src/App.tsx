@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import "./App.css";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, useHistory} from "react-router-dom";
 import MainHeader from "./components/Navigation/MainHeader";
 import MainFooter from "./components/Navigation/MainFooter";
 import MainPage from "./pages/MainPage/MainPage";
@@ -16,9 +16,11 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "./Store/auth-slice";
 import {RootState} from "./Store";
+import NewPassword from "./components/Profile/ChangePassword/NewPassword";
 
 function App() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const isAuth = useSelector<RootState, boolean>((state) => state.auth.isAuth);
 
     useEffect(() => {
@@ -66,6 +68,10 @@ function App() {
 
                 {isAuth &&
                     [
+                        <Route key={Math.random()} path="/new-password" exact>
+                            <NewPassword/>
+                        </Route>,
+
                         <Route key={Math.random()} path="/profile" exact>
                             <ProfilePage/>
                         </Route>,

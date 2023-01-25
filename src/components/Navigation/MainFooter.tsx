@@ -8,7 +8,7 @@ const MainFooter = () => {
         <h1 className={classes.footer_header}>Типографія ПромЕнерго</h1>
         <nav className={classes.footer_nav}>
             <Link to='/'>Головна</Link>
-            <Link to='/products'>Товари</Link>
+            <Link to='/products/0'>Товари</Link>
             <Link to='/contacts'>Контакти</Link>
         </nav>
         <div className={classes.footer_logo_container}>
