@@ -5,7 +5,6 @@ import loginValidator, {
     loginValidationResult,
 } from "../../util/validators/loginValidator";
 import {Link, useHistory} from "react-router-dom";
-import {json} from "stream/consumers";
 import {useDispatch} from "react-redux";
 import {authActions} from "../../Store/auth-slice";
 
@@ -22,6 +21,7 @@ const initialLoginValidationResult: loginValidationResult = {
 };
 
 const LoginForm = () => {
+    const [errorMessage, setErrorMessage] = useState<string>("");
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -56,6 +56,7 @@ const LoginForm = () => {
             const resJson = await res.json();
             console.log(resJson);
             if(res.status !== 200){
+                setErrorMessage(resJson.message);
                 return;
             }
 
@@ -102,6 +103,8 @@ const LoginForm = () => {
                         {loginFormValidationResult.password.message}
                     </p>
                 )}
+
+                {errorMessage && <p className={classes.login_form_error}>{errorMessage}</p>}
 
                 <button className={classes.login_form_btn} type='submit'>Увійти
                 </button>

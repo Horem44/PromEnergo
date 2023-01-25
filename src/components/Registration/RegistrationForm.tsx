@@ -40,6 +40,7 @@ const initialRegistrationValidationResult: registrationValidationResult = {
 
 const RegistrationForm = () => {
   const history = useHistory();
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const [isUserEntity, setIsUserEntity] = useState<boolean>(false);
 
@@ -96,7 +97,8 @@ const RegistrationForm = () => {
       });
 
       if(res.status !== 200){
-        console.log('Registration error');
+        const resJson = await res.json();
+        setErrorMessage(resJson.message);
         return;
       }
 
@@ -290,6 +292,10 @@ const RegistrationForm = () => {
             {registrationFormValidationResult.phoneNumber.message}
           </p>
         )}
+        {errorMessage &&
+            <p className={classes.registration_form_error}>
+              {errorMessage}
+            </p>}
         <button type="submit" className={classes.registration_form_button}>
           Реєстрація
         </button>
