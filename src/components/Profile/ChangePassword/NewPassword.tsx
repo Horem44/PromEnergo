@@ -23,7 +23,7 @@ const initialNewPasswordValidationResult: newPasswordValidationResult = {
 const NewPassword = () => {
     const passwordInputRef = useRef<HTMLInputElement>(null);
     const history = useHistory();
-    const { token } = useParams<{token: string}>();
+    const {token} = useParams<{ token: string }>();
     const dispatch = useDispatch();
     const confirmPasswordInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,7 +45,10 @@ const NewPassword = () => {
             fetch('http://localhost:8080/users/reset/' + token, {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({password: newPasswordData.password}),
+                body: JSON.stringify({
+                    password: newPasswordData.password,
+                    confirmPassword: newPasswordData.confirmPassword
+                }),
                 credentials: "include"
             }).then(res => {
                 return res.json();

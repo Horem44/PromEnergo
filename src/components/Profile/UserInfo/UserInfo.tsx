@@ -4,6 +4,9 @@ import userInfoValidator, {
     userInfoData,
     userInfoValidationResult,
 } from "../../../util/validators/userInfoValidator";
+import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../Store/auth-slice";
 
 const initialUserInfoValidationResult: userInfoValidationResult = {
     formIsValid: false,
@@ -32,8 +35,10 @@ const initialUserInfoValidationResult: userInfoValidationResult = {
 let currentUser: userInfoData;
 
 const UserInfo = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [userInfoValidationResult, setUserInfoValidationResult] = useState<userInfoValidationResult>(initialUserInfoValidationResult)
+    const [userInfoValidationResult, setUserInfoValidationResult] = useState<userInfoValidationResult>(initialUserInfoValidationResult);
 
     const emailInputRef = useRef<HTMLInputElement>(null);
     const nameInputRef = useRef<HTMLInputElement>(null);
@@ -48,6 +53,10 @@ const UserInfo = () => {
                 return res.json();
             })
             .then(user => {
+                if(user.isNotAuth){
+                    dispatch(authActions.logout());
+                    history.push('/login');
+                }
                 currentUser = user;
                 setIsLoading(false);
             })

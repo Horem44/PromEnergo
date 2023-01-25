@@ -24,12 +24,12 @@ function App() {
     const isAuth = useSelector<RootState, boolean>((state) => state.auth.isAuth);
 
     useEffect(() => {
-        fetch("http://localhost:8080/auth", { credentials: "include"})
+        fetch("http://localhost:8080/", { credentials: "include"})
             .then((res) => {
                 return res.json();
             })
             .then((res) => {
-                if (res.isAuth) {
+                if (!res.isNotAuth) {
                     dispatch(authActions.login());
                 }
             })

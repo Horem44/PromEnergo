@@ -3,11 +3,7 @@ import UserInfo from "../../components/Profile/UserInfo/UserInfo";
 import DeliveryInfo from "../../components/Profile/DeliveryInfo/DeliveryInfo";
 import ChangePassword from "../../components/Profile/ChangePassword/ChangePassword";
 import classes from "./ProfilePage.module.css";
-import Cookies from "universal-cookie";
-import {useHistory} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {authActions} from "../../Store/auth-slice";
-import useLogout from "../../hooks/useLogout";
+
 
 interface menuState {
     userInfoIsVisible: boolean;
@@ -51,8 +47,6 @@ const menuReducer = (state: menuState, action: menuAction) => {
 }
 
 const ProfilePage = () => {
-    useLogout();
-
     const [menuState, dispatch] = useReducer<(state: menuState, actions: menuAction) => menuState>(menuReducer, initialMenuState);
 
     const openUserInfoHandler = () => {

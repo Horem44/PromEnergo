@@ -3,6 +3,9 @@ import classes from "./DeliveryInfo.module.css";
 import fetchCity from "../../../util/NPApi/fetchCity";
 import fetchNPWarehouses from "../../../util/NPApi/fetchNPWarehouses";
 import { userInfoData } from "../../../util/validators/userInfoValidator";
+import {authActions} from "../../../Store/auth-slice";
+import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 interface DeliveryInfo {
   deliveryCity: string;
@@ -12,6 +15,8 @@ interface DeliveryInfo {
 let currentUser: DeliveryInfo & userInfoData;
 
 const DeliveryInfo = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [cityInput, setCityInput] = useState<string>("");
   const [cityList, setCityList] = useState<string[]>([]);
@@ -25,6 +30,11 @@ const DeliveryInfo = () => {
         return res.json();
       })
       .then((user) => {
+        if(user.isNotAuth){
+          dispatch(authActions.logout());
+          history.push('/login');
+        }
+
         currentUser = user;
         setCityInput(currentUser.deliveryCity);
         setWarehouseInput(currentUser.warehouse);
