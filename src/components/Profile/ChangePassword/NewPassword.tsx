@@ -4,6 +4,9 @@ import newPasswordValidator, {
     newPasswordData,
     newPasswordValidationResult,
 } from "../../../util/validators/newPasswordValidator";
+import {useHistory, useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../Store/auth-slice";
 
 const initialNewPasswordValidationResult: newPasswordValidationResult = {
     formIsValid: false,
@@ -19,6 +22,9 @@ const initialNewPasswordValidationResult: newPasswordValidationResult = {
 
 const NewPassword = () => {
     const passwordInputRef = useRef<HTMLInputElement>(null);
+    const history = useHistory();
+    const { token } = useParams<{token: string}>();
+    const dispatch = useDispatch();
     const confirmPasswordInputRef = useRef<HTMLInputElement>(null);
 
     const [newPasswordValidationResult, setNewPasswordValidationResult] =
@@ -36,7 +42,20 @@ const NewPassword = () => {
         setNewPasswordValidationResult({...validationResult});
 
         if (newPasswordValidationResult.formIsValid) {
-            console.log("Form is valid");
+            fetch('http://localhost:8080/users/reset/' + token, {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({password: newPasswordData.password}),
+                credentials: "include"
+            }).then(res => {
+                return res.json();
+            }).then(res => {
+                console.log(res);
+                dispatch(authActions.logout());
+                history.push('/');
+            }).catch(err => {
+                console.log(err);
+            })
         } else {
             console.log("Form is not valid");
         }

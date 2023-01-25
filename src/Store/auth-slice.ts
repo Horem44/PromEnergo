@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import Cookies from "universal-cookie";
 
 interface authSlice {
     isAuth: boolean;
@@ -16,10 +17,6 @@ const authSlice = createSlice({
             state.isAuth = true;
         },
         logout: (state) => {
-            console.log(document.cookie);
-            document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-            document.cookie = "userId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-            console.log(document.cookie);
             state.isAuth = false;
         }
     }

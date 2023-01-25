@@ -17,14 +17,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "./Store/auth-slice";
 import {RootState} from "./Store";
 import NewPassword from "./components/Profile/ChangePassword/NewPassword";
+import Cookies from "universal-cookie";
 
 function App() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const isAuth = useSelector<RootState, boolean>((state) => state.auth.isAuth);
 
     useEffect(() => {
-        fetch("http://localhost:8080/auth", {credentials: "include"})
+        fetch("http://localhost:8080/auth", { credentials: "include"})
             .then((res) => {
                 return res.json();
             })
@@ -68,7 +68,7 @@ function App() {
 
                 {isAuth &&
                     [
-                        <Route key={Math.random()} path="/new-password" exact>
+                        <Route key={Math.random()} path="/new-password/:token" exact>
                             <NewPassword/>
                         </Route>,
 

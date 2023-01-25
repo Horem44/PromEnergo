@@ -10,7 +10,13 @@ const UserMenu = () => {
     const dispatch = useDispatch();
 
     const logoutHandler = () => {
-        dispatch(authActions.logout());
+        fetch('http://localhost:8080/users/logout', {credentials: 'include'})
+            .then(() => {
+                dispatch(authActions.logout());
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     return (

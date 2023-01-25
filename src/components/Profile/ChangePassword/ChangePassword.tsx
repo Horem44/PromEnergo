@@ -1,6 +1,10 @@
 import React, {FormEvent, useRef, useState} from "react";
 import classes from "./ChangePassword.module.css";
-import changePasswordValidator, {changePasswordData, changePasswordValidationResult} from "../../../util/validators/changePasswordValidator";
+import changePasswordValidator, {
+    changePasswordData,
+    changePasswordValidationResult,
+} from "../../../util/validators/changePasswordValidator";
+import {useHistory} from "react-router-dom";
 
 const initialChangePasswordValidationResult: changePasswordValidationResult = {
     formIsValid: false,
@@ -12,29 +16,42 @@ const initialChangePasswordValidationResult: changePasswordValidationResult = {
 
 const ChangePassword = () => {
     const emailInputRef = useRef<HTMLInputElement>(null);
-    
-    const [changePasswordValidationResult, setChangePasswordValidationResult] = 
+    const history = useHistory();
+
+    const [changePasswordValidationResult, setChangePasswordValidationResult] =
         useState<changePasswordValidationResult>(initialChangePasswordValidationResult)
 
-    const changePasswordFormSubmitHandler = (e:FormEvent) => {
+    const changePasswordFormSubmitHandler = (e: FormEvent) => {
         e.preventDefault();
-        
-        const changePasswordData:changePasswordData = {
+
+        const changePasswordData: changePasswordData = {
             email: emailInputRef.current!.value
         }
-        
+
         const validationResult = changePasswordValidator(changePasswordData, changePasswordValidationResult);
         setChangePasswordValidationResult({...validationResult});
 
         if (changePasswordValidationResult.formIsValid) {
-            console.log("Form is valid");
+            fetch('http://localhost:8080/users/reset/', {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email: changePasswordData.email}),
+                credentials: "include"
+            }).then(res => {
+                return res.json();
+            }).then(res => {
+                console.log(res);
+                history.push('/');
+            }).catch(err => {
+                console.log(err);
+            })
         } else {
             console.log("Form is not valid");
         }
 
         return;
     }
-        
+
     return (
         <div className={classes.change_password_container}>
             <form className={classes.change_password_form} onSubmit={changePasswordFormSubmitHandler}>
