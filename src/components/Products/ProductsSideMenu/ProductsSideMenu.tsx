@@ -1,41 +1,24 @@
-import React, {ChangeEvent, useRef} from "react";
+import React, {ChangeEvent, useEffect, useRef} from "react";
 import classes from "./ProductsSideMenu.module.css";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 
-interface categoriesState {
-    category1: boolean;
-    category2: boolean;
-    category3: boolean;
-    category4: boolean;
-    category5: boolean;
-    category6: boolean;
-    category7: boolean;
-    category8: boolean;
-    category9: boolean;
-    category10: boolean;
-}
-
-interface categoriesAction {
-    type: string;
-}
-
-const initialCategoriesState: categoriesState = {
-    category1: false,
-    category2: false,
-    category3: false,
-    category4: false,
-    category5: false,
-    category6: false,
-    category7: false,
-    category8: false,
-    category9: false,
-    category10: false,
-}
-
-let searchQuery = new URLSearchParams();
+const searchQuery = new URLSearchParams();
 
 const ProductsSideMenu = () => {
     const history = useHistory();
+    const initialSearchQuery = new URLSearchParams(useLocation().search);
+
+    const initialCheckedCheckboxes = Array.from(initialSearchQuery.keys());
+
+    useEffect(() => {
+        for(let checkboxId of initialCheckedCheckboxes){
+            searchQuery.append(checkboxId, 'true');
+            const checkbox = document.getElementById(checkboxId)! as HTMLInputElement;
+            if(checkbox){
+                checkbox.checked = true;
+            }
+        }
+    }, []);
 
     const categoryChooseHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.checked){

@@ -105,6 +105,8 @@ const DeliveryInfo = () => {
         .then(user => {
           currentUser = user;
           setIsLoading(false);
+          currentUser = user;
+          setIsLoading(false);
         })
         .catch(err => {
           console.log(err);

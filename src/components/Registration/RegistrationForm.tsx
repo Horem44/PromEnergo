@@ -96,17 +96,29 @@ const RegistrationForm = () => {
         body: JSON.stringify(registrationFormData)
       });
 
-      if(res.status !== 200){
-        const resJson = await res.json();
-        setErrorMessage(resJson.message);
+      const resJson = await res.json();
+      console.log(resJson);
+
+      if(resJson.error && resJson.error.message === 'Validation error'){
+        const serverValidationFailFields = resJson.error.additionalInfo;
+        const serverValidationResult:any = {...validationResult};
+
+        for(let { param: field } of serverValidationFailFields){
+          serverValidationResult[field].isValid = false;
+        }
+
+        setRegistrationFormValidationResult({...serverValidationResult});
+        return;
+      }
+
+      if(resJson.error){
+        setErrorMessage(resJson.error.message);
         return;
       }
 
       history.push('/');
-    } else {
-      console.log("Form is not valid");
+      return
     }
-    return;
   };
 
   return (

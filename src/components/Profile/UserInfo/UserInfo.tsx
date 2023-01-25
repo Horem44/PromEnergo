@@ -93,6 +93,17 @@ const UserInfo = () => {
                     return res.json();
                 })
                 .then(user => {
+                    if(user.error){
+                        const serverValidationFailFields = user.error.additionalInfo;
+                        const serverValidationResult:any = {...validationResult};
+
+                        for(let { param: field } of serverValidationFailFields){
+                            serverValidationResult[field].isValid = false;
+                        }
+                        setUserInfoValidationResult({...serverValidationResult});
+                        setIsLoading(false);
+                        return;
+                    }
                     currentUser = user;
                     setIsLoading(false);
                 })

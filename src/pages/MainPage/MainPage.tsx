@@ -16,25 +16,25 @@ const MainPage = () => {
             <Carousel/>
             <section className={classes.main_page_info}>
                 <div className={classes.main_page_container}>
-                    <Link to='/products'>
+                    <Link to='/products/0'>
                         <img src={img1} alt="img"/>
                         <h2>Широкоформатний друк</h2>
                     </Link>
                 </div>
                 <div className={classes.main_page_container}>
-                    <Link to='/products'>
+                    <Link to='/products/0'>
                         <img src={img2} alt="img"/>
                         <h2>Візитки</h2>
                     </Link>
                 </div>
                 <div className={classes.main_page_container}>
-                    <Link to='/products'>
+                    <Link to='/products/0'>
                         <img src={img3} alt="img"/>
                         <h2>Таблички</h2>
                     </Link>
                 </div>
                 <div className={classes.main_page_container}>
-                    <Link to='/products'>
+                    <Link to='/products/0'>
                         <img src={img4} alt="img"/>
                         <h2>Файли та папки</h2>
                     </Link>

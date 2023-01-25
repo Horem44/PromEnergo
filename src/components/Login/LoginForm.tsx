@@ -21,9 +21,9 @@ const initialLoginValidationResult: loginValidationResult = {
 };
 
 const LoginForm = () => {
-    const [errorMessage, setErrorMessage] = useState<string>("");
     const history = useHistory();
     const dispatch = useDispatch();
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     const [loginFormValidationResult, setLoginFormValidationResult] =
         useState<loginValidationResult>(initialLoginValidationResult);
@@ -55,18 +55,28 @@ const LoginForm = () => {
 
             const resJson = await res.json();
             console.log(resJson);
-            if(res.status !== 200){
-                setErrorMessage(resJson.message);
+
+            if(resJson.error && resJson.error.message === 'Validation error'){
+                const serverValidationFailFields = resJson.error.additionalInfo;
+                const serverValidationResult:any = {...validationResult};
+
+                for(let { param: field } of serverValidationFailFields){
+                    serverValidationResult[field].isValid = false;
+                }
+
+                setLoginFormValidationResult({...serverValidationResult});
                 return;
             }
 
-            dispatch(authActions.login());
-            history.push('/');
-        } else {
-            console.log("Form is not valid");
-        }
+            if(resJson.error){
+                setErrorMessage(resJson.error.message);
+                return
+            }
 
-        return;
+                dispatch(authActions.login());
+                history.push('/');
+                return;
+            }
     };
 
     return (
