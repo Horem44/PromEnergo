@@ -53,7 +53,7 @@ const UserInfo = () => {
                 return res.json();
             })
             .then(user => {
-                if(user.isNotAuth){
+                if(!user || user.isNotAuth){
                     dispatch(authActions.logout());
                     history.push('/login');
                 }
