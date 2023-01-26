@@ -1,12 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
-import Cookies from "universal-cookie";
 
 interface authSlice {
     isAuth: boolean;
+    isAdmin: boolean;
 }
 
 const initialAuthState:authSlice =  {
-    isAuth: false
+    isAuth: false,
+    isAdmin: false
 }
 
 const authSlice = createSlice({
@@ -18,7 +19,15 @@ const authSlice = createSlice({
         },
         logout: (state) => {
             state.isAuth = false;
-        }
+        },
+        loginAdmin: (state) => {
+            state.isAuth = true;
+            state.isAdmin = true;
+        },
+        logoutAdmin: (state) => {
+            state.isAuth = false;
+            state.isAdmin = false;
+        },
     }
 });
 

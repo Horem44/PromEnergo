@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import "./App.css";
-import {Route, Switch, useHistory} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import MainHeader from "./components/Navigation/MainHeader";
 import MainFooter from "./components/Navigation/MainFooter";
 import MainPage from "./pages/MainPage/MainPage";
@@ -17,18 +17,24 @@ import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "./Store/auth-slice";
 import {RootState} from "./Store";
 import NewPassword from "./components/Profile/ChangePassword/NewPassword";
-import Cookies from "universal-cookie";
+import EditProductForm from "./components/Admin/EditProductForm";
 
 function App() {
     const dispatch = useDispatch();
     const isAuth = useSelector<RootState, boolean>((state) => state.auth.isAuth);
+    const isAdmin = useSelector<RootState, boolean>((state) => state.auth.isAdmin);
 
     useEffect(() => {
-        fetch("http://localhost:8080/", { credentials: "include"})
+        fetch("http://localhost:8080/", {credentials: "include"})
             .then((res) => {
                 return res.json();
             })
             .then((res) => {
+                if (res.isAdmin) {
+                    dispatch(authActions.loginAdmin());
+                    return;
+                }
+
                 if (!res.isNotAuth) {
                     dispatch(authActions.login());
                 }
@@ -66,35 +72,37 @@ function App() {
                     <ProductDetailsPage/>
                 </Route>
 
-                {isAuth &&
-                    [
-                        <Route key={Math.random()} path="/new-password/:token" exact>
-                            <NewPassword/>
-                        </Route>,
+                {isAuth && [
+                    <Route key={Math.random()} path="/new-password/:token" exact>
+                        <NewPassword/>
+                    </Route>,
 
-                        <Route key={Math.random()} path="/profile" exact>
-                            <ProfilePage/>
-                        </Route>,
+                    <Route key={Math.random()} path="/profile" exact>
+                        <ProfilePage/>
+                    </Route>,
 
-                        <Route key={Math.random()} path="/orders" exact>
-                            <UserOrders/>
-                        </Route>,
+                    <Route key={Math.random()} path="/orders" exact>
+                        <UserOrders/>
+                    </Route>,
 
-                        <Route key={Math.random()} path="/order/details" exact>
-                            <OrderDetailsPage/>
-                        </Route>,
+                    <Route key={Math.random()} path="/order/details" exact>
+                        <OrderDetailsPage/>
+                    </Route>,
+                ]}
 
-                        <Route key={Math.random()} path="/admin/add-product" exact>
-                            <AdminPage/>
-                        </Route>,
-                    ]
-                }
+                {isAdmin && [
+                    <Route key={Math.random()} path="/admin/add-product" exact>
+                        <AdminPage/>
+                    </Route>,
+                    <Route key={Math.random()} path="/admin/edit/:prodId" exact>
+                        <EditProductForm/>
+                    </Route>,
+                ]}
 
                 <Route path="/*">
                     <MainPage/>
                 </Route>
             </Switch>
-            {/*<div style={{height: "100vh"}}></div>*/}
             <MainFooter/>
         </>
     );

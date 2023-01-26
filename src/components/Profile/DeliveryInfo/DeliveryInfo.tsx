@@ -31,7 +31,7 @@ const DeliveryInfo = () => {
       })
       .then((user) => {
         if(user.isNotAuth){
-          dispatch(authActions.logout());
+          dispatch(authActions.logoutAdmin());
           history.push('/login');
         }
 

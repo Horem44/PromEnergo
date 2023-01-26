@@ -5,6 +5,8 @@ import changePasswordValidator, {
     changePasswordValidationResult,
 } from "../../../util/validators/changePasswordValidator";
 import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../Store/auth-slice";
 
 const initialChangePasswordValidationResult: changePasswordValidationResult = {
     formIsValid: false,
@@ -17,6 +19,7 @@ const initialChangePasswordValidationResult: changePasswordValidationResult = {
 const ChangePassword = () => {
     const emailInputRef = useRef<HTMLInputElement>(null);
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [changePasswordValidationResult, setChangePasswordValidationResult] =
         useState<changePasswordValidationResult>(initialChangePasswordValidationResult)
@@ -41,6 +44,11 @@ const ChangePassword = () => {
                 return res.json();
             }).then(res => {
                 console.log(res);
+                if(res.isNotAuth){
+                    dispatch(authActions.logoutAdmin());
+                    history.push('/login');
+                    return;
+                }
                 history.push('/');
             }).catch(err => {
                 console.log(err);

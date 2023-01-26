@@ -56,11 +56,11 @@ const LoginForm = () => {
             const resJson = await res.json();
             console.log(resJson);
 
-            if(resJson.error && resJson.error.message === 'Validation error'){
+            if (resJson.error && resJson.error.message === 'Validation error') {
                 const serverValidationFailFields = resJson.error.additionalInfo;
-                const serverValidationResult:any = {...validationResult};
+                const serverValidationResult: any = {...validationResult};
 
-                for(let { param: field } of serverValidationFailFields){
+                for (let {param: field} of serverValidationFailFields) {
                     serverValidationResult[field].isValid = false;
                 }
 
@@ -68,15 +68,23 @@ const LoginForm = () => {
                 return;
             }
 
-            if(resJson.error){
+            if (resJson.error) {
                 setErrorMessage(resJson.error.message);
                 return
             }
+            console.log(resJson);
 
-                dispatch(authActions.login());
+            if (resJson.isAdmin) {
+                console.log(resJson.isAdmin);
+                dispatch(authActions.loginAdmin());
                 history.push('/');
                 return;
             }
+
+            dispatch(authActions.login());
+            history.push('/');
+            return;
+        }
     };
 
     return (

@@ -54,10 +54,22 @@ const NewPassword = () => {
                 return res.json();
             }).then(res => {
                 console.log(res);
-                dispatch(authActions.logout());
+                if(res.isNotAuth){
+                    dispatch(authActions.logoutAdmin());
+                    history.push('/login');
+                    return;
+                }
+
+                if(res.error){
+                    console.log(res.error);
+                    throw new Error('Failed');
+                }
+
+                dispatch(authActions.logoutAdmin());
                 history.push('/');
             }).catch(err => {
                 console.log(err);
+                history.push('/');
             })
         } else {
             console.log("Form is not valid");

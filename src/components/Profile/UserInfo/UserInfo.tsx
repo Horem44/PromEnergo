@@ -54,7 +54,7 @@ const UserInfo = () => {
             })
             .then(user => {
                 if(!user || user.isNotAuth){
-                    dispatch(authActions.logout());
+                    dispatch(authActions.logoutAdmin());
                     history.push('/login');
                 }
                 currentUser = user;

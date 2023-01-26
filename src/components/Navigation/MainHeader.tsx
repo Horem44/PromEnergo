@@ -14,6 +14,7 @@ import { uiActions } from "../../Store/ui-slice";
 const windowWidth = window.innerWidth;
 
 const MainHeader: React.FC = () => {
+  const isAdmin = useSelector<RootState, boolean>(state => state.auth.isAdmin);
   const productsFilterMenuIsOpen = useSelector<RootState, boolean>(
     (state) => state.ui.productsFilterMenuIsVisible
   );
@@ -79,7 +80,8 @@ const MainHeader: React.FC = () => {
               <NavLink to="/products/0">Товари</NavLink>
             </li>
             <li className={classes.nav_link}>
-              <NavLink to="/contacts">Контакти</NavLink>
+              {!isAdmin && <NavLink to="/contacts">Контакти</NavLink>}
+              {isAdmin && <NavLink to="/admin/add-product">Додати товар</NavLink>}
             </li>
           </ul>
         </nav>

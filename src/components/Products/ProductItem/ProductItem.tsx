@@ -2,8 +2,10 @@ import React from "react";
 
 import classes from "./ProductItem.module.css";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../Store";
 
-interface ProductItemProps {
+export interface ProductItemProps {
     id: number;
     title: string;
     price: number;
@@ -12,6 +14,16 @@ interface ProductItemProps {
 }
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
+    const isAdmin = useSelector<RootState, boolean>(state => state.auth.isAdmin);
+    const button = isAdmin ? {
+        link: '/admin/edit/' + props.id,
+        caption: 'Змінити'
+    } : {
+        link: '/orders/',
+        caption: 'Додати до замовленнь'
+    };
+
+
     return (
         <div className={classes.product_item}>
             <Link to={`/product/${props.id}`}>
@@ -20,8 +32,8 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
             <p className={classes.product_label}>{props.title}</p>
             <p className={classes.product_price}>{props.price} грн.</p>
             <button>
-                <Link to='/orders'>
-                    Додати до замовленнь
+                <Link to={button.link}>
+                    {button.caption}
                 </Link>
             </button>
         </div>

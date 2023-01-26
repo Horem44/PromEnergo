@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ProductsSideMenu from "../../components/Products/ProductsSideMenu/ProductsSideMenu";
 import ProductList from "../../components/Products/ProductsList/ProductList";
 import classes from "./ProductsPage.module.css";
@@ -8,16 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Store";
 import { uiActions } from "../../Store/ui-slice";
 import getProducts from "../../util/ProductsUtil/getProducts";
-import {useLocation, useParams} from "react-router-dom";
-import {paginatorActions} from "../../Store/paginator-slice";
+import { useHistory, useLocation, useParams } from "react-router-dom";
+import { paginatorActions } from "../../Store/paginator-slice";
 
 const windowWidth = window.innerWidth;
 
 let products: any;
 
 const ProductsPage = () => {
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const {page} = useParams<{page: string}>();
+  const { page } = useParams<{ page: string }>();
   const { search: filterParams } = useLocation();
 
   const productsFilterMenuIsOpen = useSelector<RootState, boolean>(
@@ -29,9 +30,18 @@ const ProductsPage = () => {
   useEffect(() => {
     setIsLoading(true);
     getProducts(+page, filterParams).then((prodsData) => {
+      if (prodsData!.error) {
+        throw new Error(prodsData!.error.message)
+      }
+      console.log(prodsData);
+
       dispatch(paginatorActions.setCount(prodsData!.count));
       products = prodsData!.data;
       setIsLoading(false);
+    }).catch(err => {
+      console.log(err);
+      history.push("/products/0");
+      return;
     });
   }, [page, filterParams]);
 
