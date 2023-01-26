@@ -10,10 +10,6 @@ import {authActions} from "../../../Store/auth-slice";
 
 const initialUserInfoValidationResult: userInfoValidationResult = {
     formIsValid: false,
-    email: {
-        isValid: true,
-        message: "",
-    },
     name: {
         isValid: true,
         message: "",
@@ -40,7 +36,6 @@ const UserInfo = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [userInfoValidationResult, setUserInfoValidationResult] = useState<userInfoValidationResult>(initialUserInfoValidationResult);
 
-    const emailInputRef = useRef<HTMLInputElement>(null);
     const nameInputRef = useRef<HTMLInputElement>(null);
     const surnameInputRef = useRef<HTMLInputElement>(null);
     const phoneNumberInputRef = useRef<HTMLInputElement>(null);
@@ -69,7 +64,6 @@ const UserInfo = () => {
         e.preventDefault();
 
         const userInfoData: userInfoData = {
-            email: emailInputRef.current!.value,
             name: nameInputRef.current!.value,
             surname: surnameInputRef.current!.value,
             phoneNumber: phoneNumberInputRef.current!.value,
@@ -121,25 +115,25 @@ const UserInfo = () => {
     return <div className={classes.user_info_container}>
         <form className={classes.user_info_form} onSubmit={userInfoFormSubmitHandler}>
             {!isLoading && <>
-                <label htmlFor="info_email" className={classes.user_info_label}>
-                    Email
-                </label>
-                <input
-                    ref={emailInputRef}
-                    type="email"
-                    id="info_email"
-                    defaultValue={currentUser.email}
-                    className={`${classes.user_info_input} ${
-                        !userInfoValidationResult.email.isValid
-                            ? classes.user_info_error_input
-                            : ""
-                    }`}
-                />
-                {!userInfoValidationResult.email.isValid && (
-                    <p className={classes.user_info_error}>
-                        {userInfoValidationResult.email.message}
-                    </p>
-                )}
+                {/*<label htmlFor="info_email" className={classes.user_info_label}>*/}
+                {/*    Email*/}
+                {/*</label>*/}
+                {/*<input*/}
+                {/*    ref={emailInputRef}*/}
+                {/*    type="email"*/}
+                {/*    id="info_email"*/}
+                {/*    defaultValue={currentUser.email}*/}
+                {/*    className={`${classes.user_info_input} ${*/}
+                {/*        !userInfoValidationResult.email.isValid*/}
+                {/*            ? classes.user_info_error_input*/}
+                {/*            : ""*/}
+                {/*    }`}*/}
+                {/*/>*/}
+                {/*{!userInfoValidationResult.email.isValid && (*/}
+                {/*    <p className={classes.user_info_error}>*/}
+                {/*        {userInfoValidationResult.email.message}*/}
+                {/*    </p>*/}
+                {/*)}*/}
 
                 <label htmlFor="info_name" className={classes.user_info_label}>
                     Ім'я
@@ -210,7 +204,7 @@ const UserInfo = () => {
                     id="info_organisation_name"
                     defaultValue={currentUser.organisationName}
                     className={`${classes.user_info_input} ${
-                        !userInfoValidationResult.email.isValid
+                        !userInfoValidationResult.organisationName.isValid
                             ? classes.user_info_error_input
                             : ""
                     }`}

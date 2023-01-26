@@ -2,7 +2,6 @@ import {emailRegExp} from "./RegExp/RegExp";
 import isFormValid from "./isFormValid";
 
 export interface userInfoData {
-  email: string;
   name: string;
   surname: string;
   phoneNumber: string;
@@ -11,10 +10,6 @@ export interface userInfoData {
 
 export interface userInfoValidationResult {
   formIsValid: boolean;
-  email: {
-    isValid: boolean;
-    message: string;
-  };
   name: {
     isValid: boolean;
     message: string;
@@ -34,21 +29,6 @@ export interface userInfoValidationResult {
 }
 
 const userInfoValidator = (userInfoData:userInfoData, userInfoValidationResult:userInfoValidationResult) => {
-  if (
-      !emailRegExp.test(userInfoData.email) ||
-      userInfoData.email.trim().length === 0
-  ) {
-    userInfoValidationResult.email = {
-      isValid: false,
-      message: "Перевірте правильність вводу вашого Email",
-    };
-  } else {
-    userInfoValidationResult.email = {
-      isValid: true,
-      message: "",
-    };
-  }
-
   if (
       userInfoData.name.length < 2 ||
       userInfoData.name.trim().length === 0
