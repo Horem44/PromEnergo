@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import classes from "./Details.module.css";
+import {useSelector} from "react-redux";
+import {RootState} from "../../Store";
 
 interface DetailsProps {
     id: string;
@@ -18,6 +20,7 @@ interface DetailsItem {
 let detailItem: DetailsItem;
 
 const Details: React.FC<DetailsProps> = (props) => {
+    const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -74,9 +77,9 @@ const Details: React.FC<DetailsProps> = (props) => {
                 />
                 <div className={classes.details_description}>{detailItem.title}</div>
                 <div className={classes.details_description}>{detailItem.price} грн.</div>
-                <button className={classes.details_btn} onClick={detailsClickHandler}>
+                {isAuth && <button className={classes.details_btn} onClick={detailsClickHandler}>
                     {props.buttonCaption}
-                </button>
+                </button>}
             </>)}
         </div>
     );

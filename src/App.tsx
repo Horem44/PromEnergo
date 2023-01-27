@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import "./App.css";
+import "./App.module.css";
 import {Route, Switch} from "react-router-dom";
 import MainHeader from "./components/Navigation/MainHeader";
 import MainFooter from "./components/Navigation/MainFooter";
@@ -18,6 +18,7 @@ import {authActions} from "./Store/auth-slice";
 import {RootState} from "./Store";
 import NewPassword from "./components/Profile/ChangePassword/NewPassword";
 import EditProductForm from "./components/Admin/EditProductForm";
+import classes from "./App.module.css";
 
 function App() {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ function App() {
     }, []);
 
     return (
-        <>
+        <div className={classes.main_container}>
             <MainHeader/>
             <Switch>
                 <Route path="/" exact>
@@ -103,8 +104,10 @@ function App() {
                     <MainPage/>
                 </Route>
             </Switch>
-            <MainFooter/>
-        </>
+            <div className={classes.main_container_footer}>
+                <MainFooter/>
+            </div>
+        </div>
     );
 }
 

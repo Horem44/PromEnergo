@@ -14,6 +14,7 @@ export interface ProductItemProps {
 }
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
+    const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth);
     const isAdmin = useSelector<RootState, boolean>(state => state.auth.isAdmin);
     const history = useHistory();
 
@@ -26,7 +27,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
     };
 
     const addOrderHandler = () => {
-        if(!(button.link === '/orders/')){
+        if (!(button.link === '/orders/')) {
             history.push(button.link);
             return;
         }
@@ -61,9 +62,9 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
             </Link>
             <p className={classes.product_label}>{props.title}</p>
             <p className={classes.product_price}>{props.price} грн.</p>
-            <button onClick={addOrderHandler}>
+            {isAuth && <button onClick={addOrderHandler}>
                 {button.caption}
-            </button>
+            </button>}
         </div>
     );
 };

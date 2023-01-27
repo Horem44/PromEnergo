@@ -5,7 +5,10 @@
     border-radius: 0 0 8px 8px;
     background: #a4d8f8;
     width: 100vw;
-    z-index: 100;
+    z-index: 98;
+    position: absolute;
+    left: 0;
+    top: 84px;
     /*margin-bottom: 1rem;*/
     justify-content: flex-start;
     align-items: center;

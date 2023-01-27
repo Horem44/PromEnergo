@@ -38,6 +38,8 @@
 
 @media screen and (max-width: 750px) {
     .side_menu {
+        left: 0;
+        top: 136px;
         z-index: 94;
         background: lightgray;
         width: 70vw;
