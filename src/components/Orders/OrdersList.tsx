@@ -4,23 +4,29 @@ import classes from "./OrdersList.module.css";
 
 interface ordersListProps {
     orders: {
+        orderNo: number;
+        prodImgUrl: string;
         orderDate: string;
-        orderImg: string;
-        orderTitle: string;
-        orderQuantity: number;
-        orderPrice: number;
-        orderStatus: boolean;
+        prodId: number;
+        quantity: number;
+        totalPrice: number;
+        status: boolean;
     }[];
+
+    onDeleteOrder: (prodId: number) => void;
 }
 
 const OrdersList: React.FC<ordersListProps> = (props) => {
     return <div>
         <ul className={classes.orders_list}>
             {props.orders.map(order => {
-                return <OrdersItem key={Math.random()} orderDate={order.orderDate} orderImg={order.orderImg}
-                                   orderQuantity={order.orderQuantity}
-                                   orderTitle={order.orderTitle}
-                                   orderPrice={order.orderPrice} orderStatus={order.orderStatus}/>
+                return <OrdersItem key={Math.random()} orderDate={order.orderDate} prodId={order.prodId}
+                                   quantity={order.quantity}
+                                   totalPrice={order.totalPrice} status={order.status}
+                                   prodImgUrl={order.prodImgUrl}
+                                   orderNo={order.orderNo}
+                                   onDeleteOrder={props.onDeleteOrder}
+                />
             })}
         </ul>
     </div>

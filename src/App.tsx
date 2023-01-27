@@ -85,7 +85,7 @@ function App() {
                         <UserOrders/>
                     </Route>,
 
-                    <Route key={Math.random()} path="/order/details" exact>
+                    <Route key={Math.random()} path="/order/:prodId" exact>
                         <OrderDetailsPage/>
                     </Route>,
                 ]}

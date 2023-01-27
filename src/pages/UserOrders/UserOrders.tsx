@@ -1,58 +1,70 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import OrdersList from "../../components/Orders/OrdersList";
 import classes from "./UserOrders.module.css";
 
-const DUMMY_ORDERS = [
-  {
-    orderDate: new Date().toISOString(),
-    orderImg: 'https://media.wired.com/photos/598e35fb99d76447c4eb1f28/16:9/w_2123,h_1194,c_limit/phonepicutres-TA.jpg',
-    orderTitle: "order",
-    orderQuantity: 1,
-    orderPrice: 1,
-    orderStatus: true,
-  },
-  {
-    orderDate: new Date().toISOString(),
-    orderImg: 'https://media.wired.com/photos/598e35fb99d76447c4eb1f28/16:9/w_2123,h_1194,c_limit/phonepicutres-TA.jpg',
-    orderTitle: "order",
-    orderQuantity: 2,
-    orderPrice: 2,
-    orderStatus: true,
-  },
-  {
-    orderDate: new Date().toISOString(),
-    orderImg: 'https://media.wired.com/photos/598e35fb99d76447c4eb1f28/16:9/w_2123,h_1194,c_limit/phonepicutres-TA.jpg',
-    orderTitle: "order",
-    orderQuantity: 3,
-    orderPrice: 3,
-    orderStatus: true,
-  },
-  {
-    orderDate: new Date().toISOString(),
-    orderImg: 'https://media.wired.com/photos/598e35fb99d76447c4eb1f28/16:9/w_2123,h_1194,c_limit/phonepicutres-TA.jpg',
-    orderTitle: "order",
-    orderQuantity: 4,
-    orderPrice: 4,
-    orderStatus: true,
-  },
-  {
-    orderDate: new Date().toISOString(),
-    orderImg: 'https://media.wired.com/photos/598e35fb99d76447c4eb1f28/16:9/w_2123,h_1194,c_limit/phonepicutres-TA.jpg',
-    orderTitle: "order",
-    orderQuantity: 5,
-    orderPrice: 5,
-    orderStatus: true,
-  },
-];
+interface Orders {
+    orderNo: number;
+    prodImgUrl: string;
+    orderDate: string;
+    prodId: number;
+    quantity: number;
+    totalPrice: number;
+    status: boolean;
+}
+
+let orders: Orders[] = [];
 
 const UserOrders = () => {
-  return (
-    <main>
-      <div style={{ height: "86px" }}></div>
-      <h1 className={classes.user_orders_header}>Мої замовлення</h1>
-      <OrdersList orders={DUMMY_ORDERS} />
-    </main>
-  );
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [orders, setOrders] = useState<Orders[]>([]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        fetch('http://localhost:8080/orders/user', {credentials: 'include'})
+            .then(res => {
+                return res.json();
+            })
+            .then(ordersData => {
+                if (ordersData.error) {
+                    setOrders([]);
+                    setIsLoading(false);
+                    return;
+                }
+                setOrders(ordersData.orders);
+                setIsLoading(false);
+            })
+            .catch(err => {
+                console.log(err);
+                setIsLoading(false);
+            });
+    }, []);
+
+    const deleteOrderHandler = (prodId: number) => {
+        setIsLoading(true);
+        fetch('http://localhost:8080/order/delete/' + prodId, {
+            credentials: "include",
+            method: 'delete'
+        }).then(res => {
+            console.log(res.status);
+            const newOrders = orders.filter((order) => {
+                return !(order.prodId === prodId);
+            });
+            console.log(newOrders);
+            setOrders(newOrders);
+            setIsLoading(false);
+        }).catch(err => {
+            console.log(err);
+            setIsLoading(false);
+        });
+    }
+
+    return (
+        <main>
+            <div style={{height: "86px"}}></div>
+            <h1 className={classes.user_orders_header}>Мої замовлення</h1>
+            {!isLoading && <OrdersList onDeleteOrder={deleteOrderHandler} orders={orders}/>}
+        </main>
+    );
 };
 
 export default UserOrders;
