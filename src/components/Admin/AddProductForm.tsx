@@ -27,6 +27,7 @@ const AddProductForm = () => {
         formData.append("image", img!);
 
         fetch("http://localhost:8080/product", {
+            credentials: 'include',
             method: "post",
             body: formData,
         })

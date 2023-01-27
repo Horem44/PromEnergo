@@ -54,6 +54,7 @@ const EditProductForm = () => {
       setIsLoading(true);
       fetch("http://localhost:8080/product/update/" + prodId, {
         method: "post",
+        credentials: 'include',
         body: formData,
       })
         .then((res) => {
@@ -78,6 +79,7 @@ const EditProductForm = () => {
       setIsLoading(true);
       fetch("http://localhost:8080/product/delete/" + prodId, {
         method: "delete",
+        credentials: 'include',
       })
         .then((res) => {
           if (res.status === 401) {
