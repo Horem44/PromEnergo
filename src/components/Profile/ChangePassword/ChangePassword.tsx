@@ -6,7 +6,8 @@ import changePasswordValidator, {
 } from "../../../util/validators/changePasswordValidator";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {authActions} from "../../../Store/auth-slice";
+import {authActions, logoutRequest} from "../../../Store/auth-slice";
+import {AnyAction} from "@reduxjs/toolkit";
 
 const initialChangePasswordValidationResult: changePasswordValidationResult = {
     formIsValid: false,
@@ -45,7 +46,7 @@ const ChangePassword = () => {
             }).then(res => {
                 console.log(res);
                 if(res.isNotAuth){
-                    dispatch(authActions.logoutAdmin());
+                    dispatch(logoutRequest() as unknown as AnyAction);
                     history.push('/login');
                     return;
                 }

@@ -7,7 +7,7 @@ const ProductDetailsPage = () => {
 
     return <main>
         <div style={{height: "86px"}}></div>
-        <Details buttonCaption={'Додати до замовлень'} linkTo={'/orders'} id={prodId}/>
+        <Details buttonCaption={'Додати до замовлень'} mode={'product'} id={prodId}/>
     </main>
 }
 

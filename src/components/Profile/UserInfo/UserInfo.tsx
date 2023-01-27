@@ -6,7 +6,8 @@ import userInfoValidator, {
 } from "../../../util/validators/userInfoValidator";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {authActions} from "../../../Store/auth-slice";
+import {authActions, logoutRequest} from "../../../Store/auth-slice";
+import {AnyAction} from "@reduxjs/toolkit";
 
 const initialUserInfoValidationResult: userInfoValidationResult = {
     formIsValid: false,
@@ -49,7 +50,7 @@ const UserInfo = () => {
             })
             .then(user => {
                 if(!user || user.isNotAuth){
-                    dispatch(authActions.logoutAdmin());
+                    dispatch(logoutRequest() as unknown as AnyAction);
                     history.push('/login');
                 }
                 currentUser = user;

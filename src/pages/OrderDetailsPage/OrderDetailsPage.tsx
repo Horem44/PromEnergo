@@ -4,10 +4,9 @@ import {useParams} from "react-router-dom";
 
 const OrderDetailsPage = () => {
     let {prodId} = useParams<{prodId: string}>();
-
     return <main>
         <div style={{height: "86px"}}></div>
-        <Details buttonCaption={'Перейти до оплати'} linkTo={'/'} id={prodId}/>
+        <Details buttonCaption={'Перейти до оплати'} mode={'order'} id={prodId}/>
     </main>
 }
 

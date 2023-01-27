@@ -1,4 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {Action, AnyAction, createSlice, ThunkDispatch} from "@reduxjs/toolkit";
+import {RootState} from "./index";
 
 interface authSlice {
     isAuth: boolean;
@@ -30,6 +31,17 @@ const authSlice = createSlice({
         },
     }
 });
+
+export const logoutRequest = () => {
+    return async (dispatch: any) => {
+        dispatch(authActions.logoutAdmin());
+        try{
+            await fetch('http://localhost:8080/users/logout', {credentials: 'include'})
+        }catch (err){
+            console.log(err);
+        }
+    }
+}
 
 export const authActions = authSlice.actions;
 

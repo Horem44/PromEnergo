@@ -6,7 +6,8 @@ import newPasswordValidator, {
 } from "../../../util/validators/newPasswordValidator";
 import {useHistory, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {authActions} from "../../../Store/auth-slice";
+import {authActions, logoutRequest} from "../../../Store/auth-slice";
+import {AnyAction} from "@reduxjs/toolkit";
 
 const initialNewPasswordValidationResult: newPasswordValidationResult = {
     formIsValid: false,
@@ -55,7 +56,7 @@ const NewPassword = () => {
             }).then(res => {
                 console.log(res);
                 if(res.isNotAuth){
-                    dispatch(authActions.logoutAdmin());
+                    dispatch(logoutRequest() as unknown as AnyAction);
                     history.push('/login');
                     return;
                 }
@@ -65,7 +66,7 @@ const NewPassword = () => {
                     throw new Error('Failed');
                 }
 
-                dispatch(authActions.logoutAdmin());
+                dispatch(logoutRequest() as unknown as AnyAction);
                 history.push('/');
             }).catch(err => {
                 console.log(err);

@@ -3,9 +3,10 @@ import classes from "./DeliveryInfo.module.css";
 import fetchCity from "../../../util/NPApi/fetchCity";
 import fetchNPWarehouses from "../../../util/NPApi/fetchNPWarehouses";
 import { userInfoData } from "../../../util/validators/userInfoValidator";
-import {authActions} from "../../../Store/auth-slice";
+import {authActions, logoutRequest} from "../../../Store/auth-slice";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {AnyAction} from "@reduxjs/toolkit";
 
 interface DeliveryInfo {
   deliveryCity: string;
@@ -31,7 +32,7 @@ const DeliveryInfo = () => {
       })
       .then((user) => {
         if(user.isNotAuth){
-          dispatch(authActions.logoutAdmin());
+          dispatch(logoutRequest() as unknown as AnyAction);
           history.push('/login');
         }
 

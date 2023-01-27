@@ -2,7 +2,8 @@ import React, {FormEvent, useRef, useState} from "react";
 import classes from "./ProductForm.module.css";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {authActions} from "../../Store/auth-slice";
+import {authActions, logoutRequest} from "../../Store/auth-slice";
+import {AnyAction} from "@reduxjs/toolkit";
 
 const AddProductForm = () => {
     const [img, setImg] = useState<Blob>();
@@ -34,7 +35,7 @@ const AddProductForm = () => {
             .then((res) => {
                 console.log(res);
                 if (res.status === 401) {
-                    dispatch(authActions.logoutAdmin());
+                    dispatch(logoutRequest() as unknown as AnyAction);
                     history.push('/login');
                     return;
                 }

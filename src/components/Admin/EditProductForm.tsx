@@ -2,8 +2,9 @@ import React, { FormEvent, useEffect, useRef, useState } from "react";
 import classes from "./ProductForm.module.css";
 import { useHistory, useParams } from "react-router-dom";
 import { ProductItemProps } from "../Products/ProductItem/ProductItem";
-import {authActions} from "../../Store/auth-slice";
+import {authActions, logoutRequest} from "../../Store/auth-slice";
 import {useDispatch} from "react-redux";
+import {AnyAction} from "@reduxjs/toolkit";
 
 let currentProduct: ProductItemProps;
 
@@ -59,7 +60,7 @@ const EditProductForm = () => {
       })
         .then((res) => {
           if (res.status === 401) {
-            dispatch(authActions.logoutAdmin());
+            dispatch(logoutRequest() as unknown as AnyAction);
             history.push('/login');
             return;
           }
@@ -83,7 +84,7 @@ const EditProductForm = () => {
       })
         .then((res) => {
           if (res.status === 401) {
-            dispatch(authActions.logoutAdmin());
+            dispatch(logoutRequest() as unknown as AnyAction);
             history.push('/login');
             return;
           }

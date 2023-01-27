@@ -1,14 +1,10 @@
 import React, {useEffect, useState} from "react";
 import classes from "./Details.module.css";
-import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../Store";
-import {uiActions} from "../../Store/ui-slice";
 
 interface DetailsProps {
     id: string;
     buttonCaption: string;
-    linkTo: string;
+    mode: string;
 }
 
 interface DetailsItem {
@@ -42,7 +38,32 @@ const Details: React.FC<DetailsProps> = (props) => {
         };
 
         fetchDetails();
-    }, [])
+    }, []);
+
+    const detailsClickHandler = () => {
+        if (props.mode === 'product') {
+            fetch('http://localhost:8080/order', {
+                credentials: 'include',
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                        prodId: props.id,
+                        price: detailItem.price
+                    }
+                )
+            }).then(res => {
+                return res.json();
+            }).then(res => {
+                console.log(res);
+                return;
+            }).catch(err => {
+                console.log(err);
+                return;
+            });
+        }
+    }
 
     return (
         <div className={classes.details_container}>
@@ -53,10 +74,8 @@ const Details: React.FC<DetailsProps> = (props) => {
                 />
                 <div className={classes.details_description}>{detailItem.title}</div>
                 <div className={classes.details_description}>{detailItem.price} грн.</div>
-                <button className={classes.details_btn}>
-                    <Link className={classes.details_link} to={props.linkTo}>
-                        {props.buttonCaption}
-                    </Link>
+                <button className={classes.details_btn} onClick={detailsClickHandler}>
+                    {props.buttonCaption}
                 </button>
             </>)}
         </div>

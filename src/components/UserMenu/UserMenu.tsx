@@ -3,20 +3,15 @@ import {Link} from "react-router-dom";
 import classes from "./UserMenu.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../Store";
-import {authActions} from "../../Store/auth-slice";
+import {authActions, logoutRequest} from "../../Store/auth-slice";
+import {AnyAction} from "@reduxjs/toolkit";
 
 const UserMenu = () => {
     const isAuth = useSelector<RootState, boolean>((state) => state.auth.isAuth);
     const dispatch = useDispatch();
 
     const logoutHandler = () => {
-        fetch('http://localhost:8080/users/logout', {credentials: 'include'})
-            .then(() => {
-                dispatch(authActions.logoutAdmin());
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        dispatch(logoutRequest() as unknown as AnyAction);
     };
 
     return (
