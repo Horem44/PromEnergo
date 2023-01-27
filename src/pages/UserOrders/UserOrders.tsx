@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import OrdersList from "../../components/Orders/OrdersList";
 import classes from "./UserOrders.module.css";
+import {Blocks} from "react-loader-spinner";
 
 interface Orders {
     orderNo: number;
@@ -62,6 +63,14 @@ const UserOrders = () => {
         <main>
             <div style={{height: "86px"}}></div>
             <h1 className={classes.user_orders_header}>Мої замовлення</h1>
+            <Blocks
+                visible={isLoading}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+            />
             {!isLoading && <OrdersList onDeleteOrder={deleteOrderHandler} orders={orders}/>}
         </main>
     );

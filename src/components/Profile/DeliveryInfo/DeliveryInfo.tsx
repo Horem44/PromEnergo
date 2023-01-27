@@ -7,6 +7,7 @@ import {authActions, logoutRequest} from "../../../Store/auth-slice";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {AnyAction} from "@reduxjs/toolkit";
+import {Blocks} from "react-loader-spinner";
 
 interface DeliveryInfo {
   deliveryCity: string;
@@ -117,6 +118,14 @@ const DeliveryInfo = () => {
   return (
     <div className={classes.delivery_info_container}>
       <form className={classes.delivery_info_form} onSubmit={deliveryInfoFormSubmitHandler}>
+        <Blocks
+            visible={isLoading}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+        />
         {!isLoading && (
           <>
             <label

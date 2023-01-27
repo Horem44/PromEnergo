@@ -8,6 +8,7 @@ import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {authActions, logoutRequest} from "../../../Store/auth-slice";
 import {AnyAction} from "@reduxjs/toolkit";
+import {Blocks} from "react-loader-spinner";
 
 const initialUserInfoValidationResult: userInfoValidationResult = {
     formIsValid: false,
@@ -115,27 +116,15 @@ const UserInfo = () => {
 
     return <div className={classes.user_info_container}>
         <form className={classes.user_info_form} onSubmit={userInfoFormSubmitHandler}>
+            <Blocks
+                visible={isLoading}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+            />
             {!isLoading && <>
-                {/*<label htmlFor="info_email" className={classes.user_info_label}>*/}
-                {/*    Email*/}
-                {/*</label>*/}
-                {/*<input*/}
-                {/*    ref={emailInputRef}*/}
-                {/*    type="email"*/}
-                {/*    id="info_email"*/}
-                {/*    defaultValue={currentUser.email}*/}
-                {/*    className={`${classes.user_info_input} ${*/}
-                {/*        !userInfoValidationResult.email.isValid*/}
-                {/*            ? classes.user_info_error_input*/}
-                {/*            : ""*/}
-                {/*    }`}*/}
-                {/*/>*/}
-                {/*{!userInfoValidationResult.email.isValid && (*/}
-                {/*    <p className={classes.user_info_error}>*/}
-                {/*        {userInfoValidationResult.email.message}*/}
-                {/*    </p>*/}
-                {/*)}*/}
-
                 <label htmlFor="info_name" className={classes.user_info_label}>
                     Ім'я
                 </label>

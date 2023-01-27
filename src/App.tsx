@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./App.module.css";
 import {Route, Switch} from "react-router-dom";
 import MainHeader from "./components/Navigation/MainHeader";
@@ -19,13 +19,16 @@ import {RootState} from "./Store";
 import NewPassword from "./components/Profile/ChangePassword/NewPassword";
 import EditProductForm from "./components/Admin/EditProductForm";
 import classes from "./App.module.css";
+import {Blocks} from "react-loader-spinner";
 
 function App() {
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const isAuth = useSelector<RootState, boolean>((state) => state.auth.isAuth);
     const isAdmin = useSelector<RootState, boolean>((state) => state.auth.isAdmin);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch("http://localhost:8080/", {credentials: "include"})
             .then((res) => {
                 return res.json();
@@ -33,22 +36,35 @@ function App() {
             .then((res) => {
                 if (res.isAdmin) {
                     dispatch(authActions.loginAdmin());
+                    setIsLoading(false);
                     return;
                 }
 
                 if (!res.isNotAuth) {
                     dispatch(authActions.login());
+                    setIsLoading(false);
+                    return;
                 }
             })
             .catch((err) => {
                 console.log(err);
+                setIsLoading(false);
+                return;
             });
     }, []);
 
     return (
         <div className={classes.main_container}>
             <MainHeader/>
-            <Switch>
+            <Blocks
+                visible={isLoading}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+            />
+            {!isLoading && <Switch>
                 <Route path="/" exact>
                     <MainPage/>
                 </Route>
@@ -103,7 +119,7 @@ function App() {
                 <Route path="/*">
                     <MainPage/>
                 </Route>
-            </Switch>
+            </Switch>}
             <div className={classes.main_container_footer}>
                 <MainFooter/>
             </div>
