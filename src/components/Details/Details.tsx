@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from "react";
 import classes from "./Details.module.css";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../Store";
 import {showSuccessNotification, showWarningNotification} from "../../util/Notifications/notifications";
+import {useHistory} from "react-router-dom";
+import {logoutRequest} from "../../Store/auth-slice";
+import {AnyAction} from "@reduxjs/toolkit";
 
 interface DetailsProps {
     id: string;
@@ -21,6 +24,8 @@ interface DetailsItem {
 let detailItem: DetailsItem;
 
 const Details: React.FC<DetailsProps> = (props) => {
+    const history = useHistory();
+    const dispatch = useDispatch();
     const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -32,6 +37,11 @@ const Details: React.FC<DetailsProps> = (props) => {
                     return response.json();
                 })
                 .then((item) => {
+                    if(!item || item.error){
+                        showWarningNotification("Товар не знайдено");
+                        history.push('/products/0');
+                        setIsLoading(false);
+                    }
                     detailItem = item;
                     console.log(item);
                     setIsLoading(false);
@@ -61,6 +71,13 @@ const Details: React.FC<DetailsProps> = (props) => {
             }).then(res => {
                 return res.json();
             }).then(res => {
+                if (res.isNotAuth) {
+                    showWarningNotification('Час дії сесії вичерпано');
+                    dispatch(logoutRequest() as unknown as AnyAction);
+                    history.push('/login');
+                    return;
+                }
+
                 console.log(res);
                 showSuccessNotification('Додано до замовлень');
                 return;

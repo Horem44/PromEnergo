@@ -2,9 +2,11 @@ import React from "react";
 
 import classes from "./ProductItem.module.css";
 import {Link, useHistory} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../Store";
 import {showSuccessNotification, showWarningNotification} from "../../../util/Notifications/notifications";
+import {logoutRequest} from "../../../Store/auth-slice";
+import {AnyAction} from "@reduxjs/toolkit";
 
 export interface ProductItemProps {
     id: number;
@@ -18,6 +20,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
     const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth);
     const isAdmin = useSelector<RootState, boolean>(state => state.auth.isAdmin);
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const button = isAdmin ? {
         link: '/admin/edit/' + props.id,
@@ -49,6 +52,13 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
                 return res.json();
             })
             .then(order => {
+                if (order.isNotAuth) {
+                    showWarningNotification('Час дії сесії вичерпано');
+                    dispatch(logoutRequest() as unknown as AnyAction);
+                    history.push('/login');
+                    return;
+                }
+
                 showSuccessNotification('Додано до замовлень');
                 console.log(order);
             })

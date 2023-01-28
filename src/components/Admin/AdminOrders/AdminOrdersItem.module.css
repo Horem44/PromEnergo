@@ -1,0 +1,94 @@
+.admin_orders_container_main {
+    width: 80vw;
+    background: rgba(152, 152, 152, 0.3);
+    margin: 2rem auto;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin_orders_container {
+    display: flex;
+}
+
+.admin_orders_user {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.admin_orders_order {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.admin_orders_user_data {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.admin_orders_user_data span{
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.admin_orders_order_data {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.admin_orders_order_data span{
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.admin_orders_order_data_img{
+    justify-self: flex-end;
+    padding: 1rem;
+}
+
+.admin_orders_order_data_img img{
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    transform: translateY(0px);
+}
+
+.admin_orders_order_data_img img:hover {
+    transform: translateY(-5px);
+}
+
+.admin_orders_control {
+    display: flex;
+    justify-content: center;
+}
+
+.admin_orders_control button{
+    margin: 1rem;
+    background: white;
+    border-radius: 8px;
+    padding: 0.5rem;
+    border: 1px solid rgba(0,0,0,0.7);
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.admin_orders_control button:hover {
+    box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.admin_orders_container_data {
+    display: flex;
+}
+
+@media screen and (max-width: 750px) {
+    .admin_orders_container {
+        display: unset;
+    }
+}

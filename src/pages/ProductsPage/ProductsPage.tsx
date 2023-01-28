@@ -30,6 +30,7 @@ const ProductsPage = () => {
 
     const dispatch = useDispatch();
 
+
     useEffect(() => {
         setIsLoading(true);
         getProducts(+page, filterParams).then((prodsData) => {
@@ -66,7 +67,7 @@ const ProductsPage = () => {
             />
             <div className={classes.products_page_container}>
                 {productsFilterMenuIsOpen && <ProductsSideMenu/>}
-                {productsFilterMenuIsOpen && windowWidth < 750 && (
+                {productsFilterMenuIsOpen && windowWidth! < 750 && (
                     <div onClick={toggleProductsFilterMenuHandler}>
                         <BackDrop/>
                     </div>

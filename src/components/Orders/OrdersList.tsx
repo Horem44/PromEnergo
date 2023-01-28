@@ -4,7 +4,7 @@ import classes from "./OrdersList.module.css";
 
 interface ordersListProps {
     orders: {
-        orderNo: number;
+        id: number;
         prodImgUrl: string;
         orderDate: string;
         prodId: number;
@@ -12,7 +12,7 @@ interface ordersListProps {
         totalPrice: number;
         status: boolean;
     }[];
-
+    onPayOrder: (prodId: number, orderId: number) => void;
     onDeleteOrder: (prodId: number) => void;
 }
 
@@ -24,8 +24,9 @@ const OrdersList: React.FC<ordersListProps> = (props) => {
                                    quantity={order.quantity}
                                    totalPrice={order.totalPrice} status={order.status}
                                    prodImgUrl={order.prodImgUrl}
-                                   orderNo={order.orderNo}
                                    onDeleteOrder={props.onDeleteOrder}
+                                   onPayOrder={props.onPayOrder}
+                                   id={order.id}
                 />
             })}
         </ul>

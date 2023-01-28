@@ -22,6 +22,7 @@ import classes from "./App.module.css";
 import {Blocks} from "react-loader-spinner";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import AdminOrders from "./pages/AdminPage/AdminOrders";
 
 function App() {
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function App() {
                 return res.json();
             })
             .then((res) => {
-                if(res.isNotAuth){
+                if (res.isNotAuth) {
                     setIsLoading(false);
                     return;
                 }
@@ -85,13 +86,14 @@ function App() {
                         <ProductsPage/>
                     </Route>
 
-                    <Route path="/registration" exact>
-                        <RegistrationPage/>
-                    </Route>
-
-                    <Route path="/login" exact>
-                        <LoginPage/>
-                    </Route>
+                    {!isAuth && [
+                        <Route key={Math.random()} path="/registration" exact>
+                            <RegistrationPage/>
+                        </Route>,
+                        <Route key={Math.random()} path="/login" exact>
+                            <LoginPage/>
+                        </Route>
+                    ]}
 
                     <Route path="/product/:prodId" exact>
                         <ProductDetailsPage/>
@@ -122,6 +124,9 @@ function App() {
                         <Route key={Math.random()} path="/admin/edit/:prodId" exact>
                             <EditProductForm/>
                         </Route>,
+                        <Route key={Math.random()} path="/admin/orders/" exact>
+                            <AdminOrders/>
+                        </Route>
                     ]}
 
                     <Route path="/*">
@@ -134,7 +139,7 @@ function App() {
             </div>
             <ToastContainer
                 position="top-right"
-                autoClose={5000}
+                autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
@@ -144,7 +149,7 @@ function App() {
                 pauseOnHover
                 theme="light"
             />
-            <ToastContainer />
+            <ToastContainer/>
         </>
 
     );
