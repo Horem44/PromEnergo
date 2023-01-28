@@ -12,6 +12,7 @@ import getProducts from "../../util/ProductsUtil/getProducts";
 import {useHistory, useLocation, useParams} from "react-router-dom";
 import {paginatorActions} from "../../Store/paginator-slice";
 import {Blocks} from "react-loader-spinner";
+import {showErrorNotification} from "../../util/Notifications/notifications";
 
 const windowWidth = window.innerWidth;
 
@@ -42,6 +43,7 @@ const ProductsPage = () => {
             setIsLoading(false);
         }).catch(err => {
             console.log(err);
+            showErrorNotification('Помилка сервера');
             history.push("/products/0");
             return;
         });

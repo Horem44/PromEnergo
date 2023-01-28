@@ -2,6 +2,11 @@ import React, {useEffect, useState} from "react";
 import OrdersList from "../../components/Orders/OrdersList";
 import classes from "./UserOrders.module.css";
 import {Blocks} from "react-loader-spinner";
+import {
+    showErrorNotification,
+    showSuccessNotification,
+    showWarningNotification
+} from "../../util/Notifications/notifications";
 
 interface Orders {
     orderNo: number;
@@ -27,6 +32,7 @@ const UserOrders = () => {
             })
             .then(ordersData => {
                 if (ordersData.error) {
+                    showWarningNotification('Ще немає замовлень');
                     setOrders([]);
                     setIsLoading(false);
                     return;
@@ -53,9 +59,11 @@ const UserOrders = () => {
             console.log(newOrders);
             setOrders(newOrders);
             setIsLoading(false);
+            showSuccessNotification("Замовлення видалено");
         }).catch(err => {
             console.log(err);
             setIsLoading(false);
+            showErrorNotification('Помилка сервера');
         });
     }
 

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import classes from "./Details.module.css";
 import {useSelector} from "react-redux";
 import {RootState} from "../../Store";
+import {showSuccessNotification, showWarningNotification} from "../../util/Notifications/notifications";
 
 interface DetailsProps {
     id: string;
@@ -36,6 +37,7 @@ const Details: React.FC<DetailsProps> = (props) => {
                     setIsLoading(false);
                 })
                 .catch((err) => {
+                    showWarningNotification("Помилка сервера");
                     console.log(err);
                 });
         };
@@ -60,6 +62,7 @@ const Details: React.FC<DetailsProps> = (props) => {
                 return res.json();
             }).then(res => {
                 console.log(res);
+                showSuccessNotification('Додано до замовлень');
                 return;
             }).catch(err => {
                 console.log(err);

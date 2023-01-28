@@ -8,6 +8,7 @@ import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {AnyAction} from "@reduxjs/toolkit";
 import {Blocks} from "react-loader-spinner";
+import {showSuccessNotification, showWarningNotification} from "../../../util/Notifications/notifications";
 
 interface DeliveryInfo {
   deliveryCity: string;
@@ -33,6 +34,7 @@ const DeliveryInfo = () => {
       })
       .then((user) => {
         if(user.isNotAuth){
+          showWarningNotification('Час дії сесії вичерпано');
           dispatch(logoutRequest() as unknown as AnyAction);
           history.push('/login');
         }
@@ -87,6 +89,7 @@ const DeliveryInfo = () => {
 
   const deliveryInfoFormSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     const deliveryInfo: DeliveryInfo = {
       deliveryCity: cityInput,
       warehouse: warehouseInput,
@@ -101,12 +104,10 @@ const DeliveryInfo = () => {
       body: JSON.stringify(deliveryInfo)
     })
         .then(res => {
-          setIsLoading(true);
           return res.json();
         })
         .then(user => {
-          currentUser = user;
-          setIsLoading(false);
+          showSuccessNotification("Дані збережено");
           currentUser = user;
           setIsLoading(false);
         })

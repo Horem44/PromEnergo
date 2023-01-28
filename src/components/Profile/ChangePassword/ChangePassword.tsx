@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import {logoutRequest} from "../../../Store/auth-slice";
 import {AnyAction} from "@reduxjs/toolkit";
 import {Blocks} from "react-loader-spinner";
+import {showSuccessNotification, showWarningNotification} from "../../../util/Notifications/notifications";
 
 const initialChangePasswordValidationResult: changePasswordValidationResult = {
     formIsValid: false,
@@ -49,12 +50,14 @@ const ChangePassword = () => {
             }).then(res => {
                 console.log(res);
                 if (res.isNotAuth) {
+                    showWarningNotification('Час дії сесії вичерпано');
                     dispatch(logoutRequest() as unknown as AnyAction);
                     setIsLoading(false);
                     history.push('/login');
                     return;
                 }
 
+                showSuccessNotification('Лист надіслано на пошту');
                 setIsLoading(false);
                 history.push('/');
                 return;
@@ -65,6 +68,7 @@ const ChangePassword = () => {
             })
         } else {
             console.log("Form is not valid");
+            showWarningNotification("Введіть правильні дані")
             setIsLoading(false);
         }
 

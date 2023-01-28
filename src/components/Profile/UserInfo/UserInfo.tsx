@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import {authActions, logoutRequest} from "../../../Store/auth-slice";
 import {AnyAction} from "@reduxjs/toolkit";
 import {Blocks} from "react-loader-spinner";
+import {showSuccessNotification, showWarningNotification} from "../../../util/Notifications/notifications";
 
 const initialUserInfoValidationResult: userInfoValidationResult = {
     formIsValid: false,
@@ -51,6 +52,7 @@ const UserInfo = () => {
             })
             .then(user => {
                 if(!user || user.isNotAuth){
+                    showWarningNotification('Час дії сесії вичерпано');
                     dispatch(logoutRequest() as unknown as AnyAction);
                     history.push('/login');
                 }
@@ -90,6 +92,7 @@ const UserInfo = () => {
                 })
                 .then(user => {
                     if(user.error){
+                        showWarningNotification('Введіть правильні дані');
                         const serverValidationFailFields = user.error.additionalInfo;
                         const serverValidationResult:any = {...validationResult};
 
@@ -100,6 +103,7 @@ const UserInfo = () => {
                         setIsLoading(false);
                         return;
                     }
+                    showSuccessNotification("Дані збережено");
                     currentUser = user;
                     setIsLoading(false);
                 })
@@ -108,6 +112,7 @@ const UserInfo = () => {
                 });
         } else {
             console.log("Form is not valid");
+            showWarningNotification('Введіть правильні дані');
         }
 
         return;

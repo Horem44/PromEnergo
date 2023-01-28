@@ -4,6 +4,11 @@ import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {authActions, logoutRequest} from "../../Store/auth-slice";
 import {AnyAction} from "@reduxjs/toolkit";
+import {
+    showErrorNotification,
+    showSuccessNotification,
+    showWarningNotification
+} from "../../util/Notifications/notifications";
 
 const AddProductForm = () => {
     const [img, setImg] = useState<Blob>();
@@ -35,6 +40,7 @@ const AddProductForm = () => {
             .then((res) => {
                 console.log(res);
                 if (res.status === 401) {
+                    showWarningNotification('Час дії сесії вичерпано');
                     dispatch(logoutRequest() as unknown as AnyAction);
                     history.push('/login');
                     return;
@@ -44,11 +50,13 @@ const AddProductForm = () => {
                     throw new Error("Введіть усі дані про товар");
                 }
 
+                showSuccessNotification("Продукт додано");
                 titleInputRef.current!.value = "";
                 priceInputRef.current!.value = "";
                 categoryInputRef.current!.value = "";
             })
             .catch((err) => {
+                showErrorNotification(err.message);
                 setErrorMessage(err.message);
                 console.log(err);
             });

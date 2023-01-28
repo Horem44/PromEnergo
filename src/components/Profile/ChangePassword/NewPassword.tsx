@@ -8,6 +8,7 @@ import {useHistory, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {authActions, logoutRequest} from "../../../Store/auth-slice";
 import {AnyAction} from "@reduxjs/toolkit";
+import {showSuccessNotification, showWarningNotification} from "../../../util/Notifications/notifications";
 
 const initialNewPasswordValidationResult: newPasswordValidationResult = {
     formIsValid: false,
@@ -56,6 +57,7 @@ const NewPassword = () => {
             }).then(res => {
                 console.log(res);
                 if(res.isNotAuth){
+                    showWarningNotification('Час дії сесії вичерпано');
                     dispatch(logoutRequest() as unknown as AnyAction);
                     history.push('/login');
                     return;
@@ -66,13 +68,16 @@ const NewPassword = () => {
                     throw new Error('Failed');
                 }
 
+                showSuccessNotification('Пароль успішно змінено');
                 dispatch(logoutRequest() as unknown as AnyAction);
                 history.push('/');
             }).catch(err => {
                 console.log(err);
+                showWarningNotification("Помилка сервера, спробуйте ще раз");
                 history.push('/');
             })
         } else {
+            showWarningNotification("Введіть правильні дані");
             console.log("Form is not valid");
         }
 

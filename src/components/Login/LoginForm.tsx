@@ -7,6 +7,11 @@ import loginValidator, {
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {authActions} from "../../Store/auth-slice";
+import {
+    showErrorNotification,
+    showSuccessNotification,
+    showWarningNotification
+} from "../../util/Notifications/notifications";
 
 const initialLoginValidationResult: loginValidationResult = {
     formIsValid: false,
@@ -57,6 +62,7 @@ const LoginForm = () => {
             console.log(resJson);
 
             if (resJson.error && resJson.error.message === 'Validation error') {
+                showWarningNotification('Введіть правильні дані');
                 const serverValidationFailFields = resJson.error.additionalInfo;
                 const serverValidationResult: any = {...validationResult};
 
@@ -69,6 +75,7 @@ const LoginForm = () => {
             }
 
             if (resJson.error) {
+                showErrorNotification(resJson.error.message);
                 setErrorMessage(resJson.error.message);
                 return
             }
@@ -81,6 +88,7 @@ const LoginForm = () => {
                 return;
             }
 
+            showSuccessNotification('Ви увійшли в акаунт');
             dispatch(authActions.login());
             history.push('/');
             return;

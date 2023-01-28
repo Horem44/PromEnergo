@@ -5,6 +5,7 @@ import { ProductItemProps } from "../Products/ProductItem/ProductItem";
 import {authActions, logoutRequest} from "../../Store/auth-slice";
 import {useDispatch} from "react-redux";
 import {AnyAction} from "@reduxjs/toolkit";
+import {showSuccessNotification, showWarningNotification} from "../../util/Notifications/notifications";
 
 let currentProduct: ProductItemProps;
 
@@ -60,6 +61,7 @@ const EditProductForm = () => {
       })
         .then((res) => {
           if (res.status === 401) {
+            showWarningNotification('Час дії сесії вичерпано');
             dispatch(logoutRequest() as unknown as AnyAction);
             history.push('/login');
             return;
@@ -68,6 +70,7 @@ const EditProductForm = () => {
           return res.json();
         })
         .then((product) => {
+          showSuccessNotification("Дані збережено");
           currentProduct = product;
           setIsLoading(false);
         })

@@ -20,6 +20,8 @@ import NewPassword from "./components/Profile/ChangePassword/NewPassword";
 import EditProductForm from "./components/Admin/EditProductForm";
 import classes from "./App.module.css";
 import {Blocks} from "react-loader-spinner";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const dispatch = useDispatch();
@@ -34,6 +36,11 @@ function App() {
                 return res.json();
             })
             .then((res) => {
+                if(res.isNotAuth){
+                    setIsLoading(false);
+                    return;
+                }
+
                 if (res.isAdmin) {
                     dispatch(authActions.loginAdmin());
                     setIsLoading(false);
@@ -54,76 +61,92 @@ function App() {
     }, []);
 
     return (
-        <div className={classes.main_container}>
-            <MainHeader/>
-            <Blocks
-                visible={isLoading}
-                height="80"
-                width="80"
-                ariaLabel="blocks-loading"
-                wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"
-            />
-            {!isLoading && <Switch>
-                <Route path="/" exact>
-                    <MainPage/>
-                </Route>
+        <>
+            <div className={classes.main_container}>
+                <MainHeader/>
+                <Blocks
+                    visible={isLoading}
+                    height="80"
+                    width="80"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                />
+                {!isLoading && <Switch>
+                    <Route path="/" exact>
+                        <MainPage/>
+                    </Route>
 
-                <Route path="/contacts" exact>
-                    <ContactsPage/>
-                </Route>
+                    <Route path="/contacts" exact>
+                        <ContactsPage/>
+                    </Route>
 
-                <Route path="/products/:page" exact>
-                    <ProductsPage/>
-                </Route>
+                    <Route path="/products/:page" exact>
+                        <ProductsPage/>
+                    </Route>
 
-                <Route path="/registration" exact>
-                    <RegistrationPage/>
-                </Route>
+                    <Route path="/registration" exact>
+                        <RegistrationPage/>
+                    </Route>
 
-                <Route path="/login" exact>
-                    <LoginPage/>
-                </Route>
+                    <Route path="/login" exact>
+                        <LoginPage/>
+                    </Route>
 
-                <Route path="/product/:prodId" exact>
-                    <ProductDetailsPage/>
-                </Route>
+                    <Route path="/product/:prodId" exact>
+                        <ProductDetailsPage/>
+                    </Route>
 
-                {isAuth && [
-                    <Route key={Math.random()} path="/new-password/:token" exact>
-                        <NewPassword/>
-                    </Route>,
+                    {isAuth && [
+                        <Route key={Math.random()} path="/new-password/:token" exact>
+                            <NewPassword/>
+                        </Route>,
 
-                    <Route key={Math.random()} path="/profile" exact>
-                        <ProfilePage/>
-                    </Route>,
+                        <Route key={Math.random()} path="/profile" exact>
+                            <ProfilePage/>
+                        </Route>,
 
-                    <Route key={Math.random()} path="/orders" exact>
-                        <UserOrders/>
-                    </Route>,
+                        <Route key={Math.random()} path="/orders" exact>
+                            <UserOrders/>
+                        </Route>,
 
-                    <Route key={Math.random()} path="/order/:prodId" exact>
-                        <OrderDetailsPage/>
-                    </Route>,
-                ]}
+                        <Route key={Math.random()} path="/order/:prodId" exact>
+                            <OrderDetailsPage/>
+                        </Route>,
+                    ]}
 
-                {isAdmin && [
-                    <Route key={Math.random()} path="/admin/add-product" exact>
-                        <AdminPage/>
-                    </Route>,
-                    <Route key={Math.random()} path="/admin/edit/:prodId" exact>
-                        <EditProductForm/>
-                    </Route>,
-                ]}
+                    {isAdmin && [
+                        <Route key={Math.random()} path="/admin/add-product" exact>
+                            <AdminPage/>
+                        </Route>,
+                        <Route key={Math.random()} path="/admin/edit/:prodId" exact>
+                            <EditProductForm/>
+                        </Route>,
+                    ]}
 
-                <Route path="/*">
-                    <MainPage/>
-                </Route>
-            </Switch>}
-            <div className={classes.main_container_footer}>
-                <MainFooter/>
+                    <Route path="/*">
+                        <MainPage/>
+                    </Route>
+                </Switch>}
+                <div className={classes.main_container_footer}>
+                    <MainFooter/>
+                </div>
             </div>
-        </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            <ToastContainer />
+        </>
+
     );
 }
 

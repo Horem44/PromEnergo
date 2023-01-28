@@ -5,6 +5,11 @@ import registrationValidator, {
   registrationValidationResult,
 } from "../../util/validators/registrationValidator";
 import {useHistory} from "react-router-dom";
+import {
+  showErrorNotification,
+  showSuccessNotification,
+  showWarningNotification
+} from "../../util/Notifications/notifications";
 
 const initialRegistrationValidationResult: registrationValidationResult = {
   formIsValid: false,
@@ -100,6 +105,8 @@ const RegistrationForm = () => {
       console.log(resJson);
 
       if(resJson.error && resJson.error.message === 'Validation error'){
+        showWarningNotification('Введіть правильні дані');
+
         const serverValidationFailFields = resJson.error.additionalInfo;
         const serverValidationResult:any = {...validationResult};
 
@@ -112,12 +119,17 @@ const RegistrationForm = () => {
       }
 
       if(resJson.error){
+        showErrorNotification(resJson.error.message);
         setErrorMessage(resJson.error.message);
         return;
       }
 
+      showSuccessNotification('Ви успішно зареєструвалися');
       history.push('/');
       return
+    }else {
+      showWarningNotification('Введіть правильні дані');
+      return;
     }
   };
 

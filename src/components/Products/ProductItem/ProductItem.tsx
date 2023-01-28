@@ -4,6 +4,7 @@ import classes from "./ProductItem.module.css";
 import {Link, useHistory} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../Store";
+import {showSuccessNotification, showWarningNotification} from "../../../util/Notifications/notifications";
 
 export interface ProductItemProps {
     id: number;
@@ -23,7 +24,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
         caption: 'Змінити'
     } : {
         link: '/orders/',
-        caption: 'Додати до замовленнь'
+        caption: 'Додати до замовлень'
     };
 
     const addOrderHandler = () => {
@@ -48,9 +49,11 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
                 return res.json();
             })
             .then(order => {
+                showSuccessNotification('Додано до замовлень');
                 console.log(order);
             })
             .catch(err => {
+                showWarningNotification("Помилка сервера");
                 console.log(err);
             })
     }
