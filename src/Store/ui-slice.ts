@@ -17,6 +17,9 @@ const uiSlice = createSlice({
         closeProductsFilterMenu: (state) => {
             state.productsFilterMenuIsVisible = false;
         },
+        openProductsFilterMenu: (state) => {
+            state.productsFilterMenuIsVisible = true;
+        },
         toggleProductsFilterMenu: (state) => {
             state.productsFilterMenuIsVisible = !state.productsFilterMenuIsVisible;
         },

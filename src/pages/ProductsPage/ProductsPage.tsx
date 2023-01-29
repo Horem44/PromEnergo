@@ -14,8 +14,6 @@ import {paginatorActions} from "../../Store/paginator-slice";
 import {Blocks} from "react-loader-spinner";
 import {showErrorNotification} from "../../util/Notifications/notifications";
 
-const windowWidth = window.innerWidth;
-
 let products: any;
 
 const ProductsPage = () => {
@@ -23,6 +21,7 @@ const ProductsPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const {page} = useParams<{ page: string }>();
     const {search: filterParams} = useLocation();
+    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
     const productsFilterMenuIsOpen = useSelector<RootState, boolean>(
         (state) => state.ui.productsFilterMenuIsVisible
@@ -58,6 +57,29 @@ const ProductsPage = () => {
             document.body.style.overflow = "";
         }
     };
+
+    let debouncingWidthTimer:any;
+
+    const debouncedWidth = () => {
+        return () => {
+            clearTimeout(debouncingWidthTimer);
+            debouncingWidthTimer = setTimeout(() => {
+                if(window.innerWidth > 750){
+                    document.body.style.overflow = "";
+                    dispatch(uiActions.openProductsFilterMenu());
+                    setWindowWidth(window.innerWidth);
+                    return;
+                }
+                document.body.style.overflow = "hidden";
+                setWindowWidth(window.innerWidth);
+            }, 500);
+        }
+    }
+
+    window.addEventListener('resize', () => {
+        debouncedWidth()();
+    });
+
 
     return (
         <div>

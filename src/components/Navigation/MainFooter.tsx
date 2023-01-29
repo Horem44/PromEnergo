@@ -16,7 +16,6 @@ const MainFooter = () => {
         </div>
         <div className={classes.footer_description}>
             <p>©ПромЕнерго 2023</p>
-            <p>by lowfear</p>
         </div>
     </footer>;
 };

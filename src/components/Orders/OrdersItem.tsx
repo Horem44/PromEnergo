@@ -33,7 +33,7 @@ const OrdersItem: React.FC<ordersItemProps> = (props) => {
           </div>
           <div className={classes.order_data}>
             <span>Кількість</span>
-            <input type="number" defaultValue={props.quantity} />
+            {props.quantity}
           </div>
           <div className={classes.order_data}>
             <span>Ціна замовлення</span>

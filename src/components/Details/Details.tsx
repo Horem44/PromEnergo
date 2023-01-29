@@ -2,7 +2,11 @@ import React, {useEffect, useState} from "react";
 import classes from "./Details.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../Store";
-import {showSuccessNotification, showWarningNotification} from "../../util/Notifications/notifications";
+import {
+    showErrorNotification,
+    showSuccessNotification,
+    showWarningNotification
+} from "../../util/Notifications/notifications";
 import {useHistory} from "react-router-dom";
 import {logoutRequest} from "../../Store/auth-slice";
 import {AnyAction} from "@reduxjs/toolkit";
@@ -85,6 +89,11 @@ const Details: React.FC<DetailsProps> = (props) => {
                 console.log(err);
                 return;
             });
+        }
+
+        if(props.mode === 'order') {
+            history.push('/orders');
+            return;
         }
     }
 
