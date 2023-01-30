@@ -2,6 +2,10 @@
 
 Online store with the ability to manage orders by administrator
 
+## npm start
+
+Run project
+
 ## Technologies used in the development
 
 TypeScript, 
